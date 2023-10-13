@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Haughskell - Haskell Modules</title>
+        <link rel="stylesheet" href="../css/solarized.css" />
+        <link rel="stylesheet" href="../css/default.css" />
+        <link rel="stylesheet" href="../css/syntax.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">Haughskell</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <!-- <a href="/contact.html">Contact</a> -->
+                <!-- <a href="/archive.html">Archive</a> -->
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>Haskell Modules</h1>
+            <article>
+    <section class="header">
+        
+    </section>
+    <section>
+        <h1 id="haskell-modules">Haskell Modules</h1>
+<p>Haskell modules are closely tied to source files. Each source file can only contain 1 module. The module name must match the name of the source file it is contained within (<em>without .hs</em>).</p>
+<h2 id="module-example">Module Example</h2>
+<p>For example let’s say our project’s folder structure looks as follows:</p>
+<pre><code>project
+|--app
+|  | Main.hs
+|  | Foo.hs
+|  project.cabal
+|  .
+|  .
+|  .</code></pre>
+<p>Main.hs looks as follows:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="0"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="0"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="0-1"><a href="#0-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span></span>
+<span id="0-2"><a href="#0-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="0-3"><a href="#0-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Foo</span></span>
+<span id="0-4"><a href="#0-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="0-5"><a href="#0-5" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="0-6"><a href="#0-6" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> <span class="fu">putStrLn</span> <span class="st">&quot;Hello, Haskell!&quot;</span></span></code></pre></div>
+</div>
+<p>Foo.hs looks as follows:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="1"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="1-1"><a href="#1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Foo</span> <span class="kw">where</span></span>
+<span id="1-2"><a href="#1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="1-3"><a href="#1-3" aria-hidden="true" tabindex="-1"></a><span class="ot">you ::</span> <span class="dt">String</span></span>
+<span id="1-4"><a href="#1-4" aria-hidden="true" tabindex="-1"></a>you <span class="ot">=</span> <span class="st">&quot;you&quot;</span></span>
+<span id="1-5"><a href="#1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="1-6"><a href="#1-6" aria-hidden="true" tabindex="-1"></a><span class="ot">bar ::</span> <span class="dt">Int</span></span>
+<span id="1-7"><a href="#1-7" aria-hidden="true" tabindex="-1"></a>bar <span class="ot">=</span> <span class="dv">3</span></span></code></pre></div>
+</div>
+<p>project.cabal looks as follows:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="2"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="2-1"><a href="#2-1" aria-hidden="true" tabindex="-1"></a>cabal<span class="op">-</span>version<span class="op">:</span>      <span class="fl">3.0</span></span>
+<span id="2-2"><a href="#2-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- The cabal-version field refers to the version of the .cabal specification,</span></span>
+<span id="2-3"><a href="#2-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- and can be different from the cabal-install (the tool) version and the</span></span>
+<span id="2-4"><a href="#2-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Cabal (the library) version you are using. As such, the Cabal (the library)</span></span>
+<span id="2-5"><a href="#2-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- version used must be equal or greater than the version stated in this field.</span></span>
+<span id="2-6"><a href="#2-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Starting from the specification version 2.2, the cabal-version field must be</span></span>
+<span id="2-7"><a href="#2-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- the first thing in the cabal file.</span></span>
+<span id="2-8"><a href="#2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-9"><a href="#2-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- Initial package description 'testing' generated by</span></span>
+<span id="2-10"><a href="#2-10" aria-hidden="true" tabindex="-1"></a><span class="co">-- 'cabal init'. For further documentation, see:</span></span>
+<span id="2-11"><a href="#2-11" aria-hidden="true" tabindex="-1"></a><span class="co">--   http://haskell.org/cabal/users-guide/</span></span>
+<span id="2-12"><a href="#2-12" aria-hidden="true" tabindex="-1"></a><span class="co">--</span></span>
+<span id="2-13"><a href="#2-13" aria-hidden="true" tabindex="-1"></a><span class="co">-- The name of the package.</span></span>
+<span id="2-14"><a href="#2-14" aria-hidden="true" tabindex="-1"></a>name<span class="op">:</span>               testing</span>
+<span id="2-15"><a href="#2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-16"><a href="#2-16" aria-hidden="true" tabindex="-1"></a><span class="co">-- The package version.</span></span>
+<span id="2-17"><a href="#2-17" aria-hidden="true" tabindex="-1"></a><span class="co">-- See the Haskell package versioning policy (PVP) for standards</span></span>
+<span id="2-18"><a href="#2-18" aria-hidden="true" tabindex="-1"></a><span class="co">-- guiding when and how versions should be incremented.</span></span>
+<span id="2-19"><a href="#2-19" aria-hidden="true" tabindex="-1"></a><span class="co">-- https://pvp.haskell.org</span></span>
+<span id="2-20"><a href="#2-20" aria-hidden="true" tabindex="-1"></a><span class="co">-- PVP summary:     +-+------- breaking API changes</span></span>
+<span id="2-21"><a href="#2-21" aria-hidden="true" tabindex="-1"></a><span class="co">--                  | | +----- non-breaking API additions</span></span>
+<span id="2-22"><a href="#2-22" aria-hidden="true" tabindex="-1"></a><span class="co">--                  | | | +--- code changes with no API change</span></span>
+<span id="2-23"><a href="#2-23" aria-hidden="true" tabindex="-1"></a>version<span class="op">:</span>            <span class="fl">0.1</span><span class="op">.</span><span class="fl">0.0</span></span>
+<span id="2-24"><a href="#2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-25"><a href="#2-25" aria-hidden="true" tabindex="-1"></a><span class="co">-- A short (one-line) description of the package.</span></span>
+<span id="2-26"><a href="#2-26" aria-hidden="true" tabindex="-1"></a><span class="co">-- synopsis:</span></span>
+<span id="2-27"><a href="#2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-28"><a href="#2-28" aria-hidden="true" tabindex="-1"></a><span class="co">-- A longer description of the package.</span></span>
+<span id="2-29"><a href="#2-29" aria-hidden="true" tabindex="-1"></a><span class="co">-- description:</span></span>
+<span id="2-30"><a href="#2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-31"><a href="#2-31" aria-hidden="true" tabindex="-1"></a><span class="co">-- The license under which the package is released.</span></span>
+<span id="2-32"><a href="#2-32" aria-hidden="true" tabindex="-1"></a>license<span class="op">:</span>            <span class="dt">BSD</span><span class="op">-</span><span class="dv">2</span><span class="op">-</span><span class="dt">Clause</span></span>
+<span id="2-33"><a href="#2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-34"><a href="#2-34" aria-hidden="true" tabindex="-1"></a><span class="co">-- The file containing the license text.</span></span>
+<span id="2-35"><a href="#2-35" aria-hidden="true" tabindex="-1"></a>license<span class="op">-</span>file<span class="op">:</span>       <span class="dt">LICENSE</span></span>
+<span id="2-36"><a href="#2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-37"><a href="#2-37" aria-hidden="true" tabindex="-1"></a><span class="co">-- The package author(s).</span></span>
+<span id="2-38"><a href="#2-38" aria-hidden="true" tabindex="-1"></a>author<span class="op">:</span>             <span class="dt">Joseph</span> <span class="dt">Haugh</span></span>
+<span id="2-39"><a href="#2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-40"><a href="#2-40" aria-hidden="true" tabindex="-1"></a><span class="co">-- An email address to which users can send suggestions, bug reports, and patches.</span></span>
+<span id="2-41"><a href="#2-41" aria-hidden="true" tabindex="-1"></a>maintainer<span class="op">:</span>         glue500<span class="op">@</span>unm<span class="op">.</span>edu</span>
+<span id="2-42"><a href="#2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-43"><a href="#2-43" aria-hidden="true" tabindex="-1"></a><span class="co">-- A copyright notice.</span></span>
+<span id="2-44"><a href="#2-44" aria-hidden="true" tabindex="-1"></a><span class="co">-- copyright:</span></span>
+<span id="2-45"><a href="#2-45" aria-hidden="true" tabindex="-1"></a>build<span class="op">-</span><span class="kw">type</span><span class="op">:</span>         <span class="dt">Simple</span></span>
+<span id="2-46"><a href="#2-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-47"><a href="#2-47" aria-hidden="true" tabindex="-1"></a><span class="co">-- Extra doc files to be distributed with the package, such as a CHANGELOG or a README.</span></span>
+<span id="2-48"><a href="#2-48" aria-hidden="true" tabindex="-1"></a>extra<span class="op">-</span>doc<span class="op">-</span>files<span class="op">:</span>    CHANGELOG.md</span>
+<span id="2-49"><a href="#2-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-50"><a href="#2-50" aria-hidden="true" tabindex="-1"></a><span class="co">-- Extra source files to be distributed with the package, such as examples, or a tutorial module.</span></span>
+<span id="2-51"><a href="#2-51" aria-hidden="true" tabindex="-1"></a><span class="co">-- extra-source-files:</span></span>
+<span id="2-52"><a href="#2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-53"><a href="#2-53" aria-hidden="true" tabindex="-1"></a>common warnings</span>
+<span id="2-54"><a href="#2-54" aria-hidden="true" tabindex="-1"></a>    ghc<span class="op">-</span>options<span class="op">:</span> <span class="op">-</span><span class="dt">Wall</span></span>
+<span id="2-55"><a href="#2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-56"><a href="#2-56" aria-hidden="true" tabindex="-1"></a>executable testing</span>
+<span id="2-57"><a href="#2-57" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Import common warning flags.</span></span>
+<span id="2-58"><a href="#2-58" aria-hidden="true" tabindex="-1"></a>    <span class="kw">import</span>:           warnings</span>
+<span id="2-59"><a href="#2-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-60"><a href="#2-60" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- .hs or .lhs file containing the Main module.</span></span>
+<span id="2-61"><a href="#2-61" aria-hidden="true" tabindex="-1"></a>    main<span class="op">-</span>is<span class="op">:</span>          Main.hs</span>
+<span id="2-62"><a href="#2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-63"><a href="#2-63" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Modules included in this executable, other than Main.</span></span>
+<span id="2-64"><a href="#2-64" aria-hidden="true" tabindex="-1"></a>    other<span class="op">-</span>modules<span class="op">:</span>    <span class="dt">Foo</span></span>
+<span id="2-65"><a href="#2-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-66"><a href="#2-66" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- LANGUAGE extensions used by modules in this package.</span></span>
+<span id="2-67"><a href="#2-67" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- other-extensions:</span></span>
+<span id="2-68"><a href="#2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-69"><a href="#2-69" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Other library packages from which modules are imported.</span></span>
+<span id="2-70"><a href="#2-70" aria-hidden="true" tabindex="-1"></a>    build<span class="op">-</span>depends<span class="op">:</span>    base <span class="op">^&gt;=</span><span class="fl">4.15</span><span class="op">.</span><span class="fl">1.0</span></span>
+<span id="2-71"><a href="#2-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-72"><a href="#2-72" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Directories containing source files.</span></span>
+<span id="2-73"><a href="#2-73" aria-hidden="true" tabindex="-1"></a>    hs<span class="op">-</span>source<span class="op">-</span>dirs<span class="op">:</span>   app</span>
+<span id="2-74"><a href="#2-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-75"><a href="#2-75" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Base language which the package is written in.</span></span>
+<span id="2-76"><a href="#2-76" aria-hidden="true" tabindex="-1"></a>    default<span class="op">-</span>language<span class="op">:</span> <span class="dt">Haskell2010</span></span></code></pre></div>
+</div>
+<p>For now everything is fairly simple. We have two Haskell source files that both reside in a flat folder structure. When we added <em>Foo.hs</em> we also made sure to add it to the <em>other-modules</em> field in our <em>project.cabal</em>. All is well in the world. However, what if we want to start structuring our source code hierarchy with some folders? Well let’s see how this would play out. Let’s add a folder called “Utils” and put a Haskell file called “Baz.hs” in there. Thus, our folder structure would look as follows:</p>
+<pre><code>project
+|--app
+|  | Main.hs
+|  | Foo.hs
+|  |--Utils
+|     | Baz.hs
+|  project.cabal
+|  .
+|  .
+|  .</code></pre>
+<p>Baz.hs looks as follows:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="3"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="3-1"><a href="#3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Utils.Baz</span> <span class="kw">where</span></span>
+<span id="3-2"><a href="#3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="3-3"><a href="#3-3" aria-hidden="true" tabindex="-1"></a><span class="ot">baz ::</span> <span class="dt">Float</span></span>
+<span id="3-4"><a href="#3-4" aria-hidden="true" tabindex="-1"></a>baz <span class="ot">=</span> <span class="fl">3.14</span></span>
+<span id="3-5"><a href="#3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="3-6"><a href="#3-6" aria-hidden="true" tabindex="-1"></a><span class="ot">bah ::</span> <span class="dt">String</span></span>
+<span id="3-7"><a href="#3-7" aria-hidden="true" tabindex="-1"></a>bah <span class="ot">=</span> <span class="st">&quot;bahhaha&quot;</span></span></code></pre></div>
+</div>
+<p>Notice that the module name is not just “Baz”. This is because the module name matches to folder structure of your source file directory. The root folder is determined by the <em>hs-source-dirs</em> field in your <em>.cabal</em> file. Whatever folder you set this too all source files directly in that folder only need the name of the file as the module name. However, any source files in sub-folders underneath the root folder must include their folder path in their module name. <em>Note it is best practice to user capitalized names for all sub-folders.</em> Thus, we get the “Utils.Baz” module name. Now let’s say we want to import this file in <em>Main</em>, then our <em>Main.hs</em> would look as follows:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="4"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="4-1"><a href="#4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span></span>
+<span id="4-2"><a href="#4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="4-3"><a href="#4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Foo</span></span>
+<span id="4-4"><a href="#4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Utils.Baz</span></span>
+<span id="4-5"><a href="#4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="4-6"><a href="#4-6" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="4-7"><a href="#4-7" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> <span class="fu">putStrLn</span> <span class="st">&quot;Hello, Haskell!&quot;</span></span></code></pre></div>
+</div>
+<p>But wait we also need to add it to our <em>project.cabal</em> file! Thus, our <em>other-modules</em> would now look as follows:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="5"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="5-1"><a href="#5-1" aria-hidden="true" tabindex="-1"></a>other<span class="op">-</span>modules<span class="op">:</span>    <span class="dt">Foo</span></span>
+<span id="5-2"><a href="#5-2" aria-hidden="true" tabindex="-1"></a>                , <span class="dt">Utils.Baz</span></span></code></pre></div>
+</div>
+<p>Now we can use the function from <em>Utils.Baz</em> in <em>Main</em>.</p>
+<h2 id="controlling-exports">Controlling Exports</h2>
+<p>By default a module exposes all of the functions and datatypes contained within them. This is usually not desirable as we often want to only expose some of the function. This is easily achievable with Haskell modules. For example let’s say we only wanted to export the <em>baz</em> function from <em>Baz.hs</em>, we would then have to change the file to be the following:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="6"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="6-1"><a href="#6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Utils.Baz</span> (baz) <span class="kw">where</span></span>
+<span id="6-2"><a href="#6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="6-3"><a href="#6-3" aria-hidden="true" tabindex="-1"></a><span class="ot">baz ::</span> <span class="dt">Float</span></span>
+<span id="6-4"><a href="#6-4" aria-hidden="true" tabindex="-1"></a>baz <span class="ot">=</span> <span class="fl">3.14</span></span>
+<span id="6-5"><a href="#6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="6-6"><a href="#6-6" aria-hidden="true" tabindex="-1"></a><span class="ot">bah ::</span> <span class="dt">String</span></span>
+<span id="6-7"><a href="#6-7" aria-hidden="true" tabindex="-1"></a>bah <span class="ot">=</span> <span class="st">&quot;bahhaha&quot;</span></span></code></pre></div>
+</div>
+<p>Whatever functions we put in the parenthesis next to the module name get exported. <em>Note the export list is a comma separated.</em> Now if we tried to use <em>bah</em> in <em>Main</em> we would get an error. Now let’s say that we want to add a custom datatype to <em>Foo</em>:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="7"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="7-1"><a href="#7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Foo</span> <span class="kw">where</span></span>
+<span id="7-2"><a href="#7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="7-3"><a href="#7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">FancyType</span> <span class="ot">=</span> <span class="dt">FancyConstructor</span></span>
+<span id="7-4"><a href="#7-4" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getFancy ::</span> <span class="dt">String</span> </span>
+<span id="7-5"><a href="#7-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="7-6"><a href="#7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="7-7"><a href="#7-7" aria-hidden="true" tabindex="-1"></a><span class="ot">you ::</span> <span class="dt">String</span></span>
+<span id="7-8"><a href="#7-8" aria-hidden="true" tabindex="-1"></a>you <span class="ot">=</span> <span class="st">&quot;you&quot;</span></span>
+<span id="7-9"><a href="#7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="7-10"><a href="#7-10" aria-hidden="true" tabindex="-1"></a><span class="ot">bar ::</span> <span class="dt">Int</span></span>
+<span id="7-11"><a href="#7-11" aria-hidden="true" tabindex="-1"></a>bar <span class="ot">=</span> <span class="dv">3</span></span></code></pre></div>
+</div>
+<p>Now we are exporting an additional 3 things:</p>
+<ol type="1">
+<li>The type <em>FancyType</em></li>
+<li>The constructor <em>FancyConstructor</em></li>
+<li>The getter function <em>getFancy</em></li>
+</ol>
+<p>Haskell let’s you control which of these three things you export. For example if we only want to export the type then our file would look as follows:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="8"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="8-1"><a href="#8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Foo</span> (<span class="dt">FancyType</span>) <span class="kw">where</span></span>
+<span id="8-2"><a href="#8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="8-3"><a href="#8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">FancyType</span> <span class="ot">=</span> <span class="dt">FancyConstructor</span></span>
+<span id="8-4"><a href="#8-4" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getFancy ::</span> <span class="dt">String</span> </span>
+<span id="8-5"><a href="#8-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="8-6"><a href="#8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="8-7"><a href="#8-7" aria-hidden="true" tabindex="-1"></a><span class="ot">you ::</span> <span class="dt">String</span></span>
+<span id="8-8"><a href="#8-8" aria-hidden="true" tabindex="-1"></a>you <span class="ot">=</span> <span class="st">&quot;you&quot;</span></span>
+<span id="8-9"><a href="#8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="8-10"><a href="#8-10" aria-hidden="true" tabindex="-1"></a><span class="ot">bar ::</span> <span class="dt">Int</span></span>
+<span id="8-11"><a href="#8-11" aria-hidden="true" tabindex="-1"></a>bar <span class="ot">=</span> <span class="dv">3</span></span></code></pre></div>
+</div>
+<p>This does not export <em>FancyConstructor</em> or <em>getFancy</em> only the type. Thus, anyone importing our module could only <em>see</em> the <em>FancyType</em> but could not create one or access into using the getter function. What if we do want to export everything about our datatype? Well then our file would need to look as follows:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="9"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="9-1"><a href="#9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Foo</span> </span>
+<span id="9-2"><a href="#9-2" aria-hidden="true" tabindex="-1"></a>  ( <span class="dt">FancyType</span>(<span class="dt">FancyConstructor</span>, getFancy)</span>
+<span id="9-3"><a href="#9-3" aria-hidden="true" tabindex="-1"></a>  , you</span>
+<span id="9-4"><a href="#9-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="kw">where</span></span>
+<span id="9-5"><a href="#9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="9-6"><a href="#9-6" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">FancyType</span> <span class="ot">=</span> <span class="dt">FancyConstructor</span></span>
+<span id="9-7"><a href="#9-7" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getFancy ::</span> <span class="dt">String</span> </span>
+<span id="9-8"><a href="#9-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="9-9"><a href="#9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="9-10"><a href="#9-10" aria-hidden="true" tabindex="-1"></a><span class="ot">you ::</span> <span class="dt">String</span></span>
+<span id="9-11"><a href="#9-11" aria-hidden="true" tabindex="-1"></a>you <span class="ot">=</span> <span class="st">&quot;you&quot;</span></span>
+<span id="9-12"><a href="#9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="9-13"><a href="#9-13" aria-hidden="true" tabindex="-1"></a><span class="ot">bar ::</span> <span class="dt">Int</span></span>
+<span id="9-14"><a href="#9-14" aria-hidden="true" tabindex="-1"></a>bar <span class="ot">=</span> <span class="dv">3</span></span></code></pre></div>
+</div>
+<p><em>Note how the exports are now formatted a bit differently this usually how they are formatted to be able to easily add more exports in the future, just add a new line with a comma and a new export</em>. We are now exporting everything associated with our datatype. However, it seems a bit annoying having to list it all out which is why there is a shorthand for exporting everything:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="10"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="10-1"><a href="#10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Foo</span> </span>
+<span id="10-2"><a href="#10-2" aria-hidden="true" tabindex="-1"></a>  ( <span class="dt">FancyType</span>(<span class="op">..</span>)</span>
+<span id="10-3"><a href="#10-3" aria-hidden="true" tabindex="-1"></a>  , you</span>
+<span id="10-4"><a href="#10-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="kw">where</span></span>
+<span id="10-5"><a href="#10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="10-6"><a href="#10-6" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">FancyType</span> <span class="ot">=</span> <span class="dt">FancyConstructor</span></span>
+<span id="10-7"><a href="#10-7" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getFancy ::</span> <span class="dt">String</span> </span>
+<span id="10-8"><a href="#10-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="10-9"><a href="#10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="10-10"><a href="#10-10" aria-hidden="true" tabindex="-1"></a><span class="ot">you ::</span> <span class="dt">String</span></span>
+<span id="10-11"><a href="#10-11" aria-hidden="true" tabindex="-1"></a>you <span class="ot">=</span> <span class="st">&quot;you&quot;</span></span>
+<span id="10-12"><a href="#10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="10-13"><a href="#10-13" aria-hidden="true" tabindex="-1"></a><span class="ot">bar ::</span> <span class="dt">Int</span></span>
+<span id="10-14"><a href="#10-14" aria-hidden="true" tabindex="-1"></a>bar <span class="ot">=</span> <span class="dv">3</span></span></code></pre></div>
+</div>
+<p>Voila! You may be asking yourself well why wouldn’t we just export everything anyway? The answer is an idiom called <em>smart constructors</em>.</p>
+<h3 id="smart-constructors">Smart Constructors</h3>
+<p>A <em>smart constructor</em> is the idea of having a function to produce your type rather than the automatically provided data constructor. The reason for this is because then you can do input checking before actually constructing your datatype. For example say that we wanted a <em>smart constructor</em> for <em>FancyType</em> to make sure that the input string was non-empty. We also want to only export the type and our <em>smart constructor</em>, our file would look as follows:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="11"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="11-1"><a href="#11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Foo</span> </span>
+<span id="11-2"><a href="#11-2" aria-hidden="true" tabindex="-1"></a>  ( <span class="dt">FancyType</span></span>
+<span id="11-3"><a href="#11-3" aria-hidden="true" tabindex="-1"></a>  , makeFancyType</span>
+<span id="11-4"><a href="#11-4" aria-hidden="true" tabindex="-1"></a>  , you</span>
+<span id="11-5"><a href="#11-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="kw">where</span></span>
+<span id="11-6"><a href="#11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="11-7"><a href="#11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">FancyType</span> <span class="ot">=</span> <span class="dt">FancyConstructor</span></span>
+<span id="11-8"><a href="#11-8" aria-hidden="true" tabindex="-1"></a>  {<span class="ot"> getFancy ::</span> <span class="dt">String</span> </span>
+<span id="11-9"><a href="#11-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="11-10"><a href="#11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="11-11"><a href="#11-11" aria-hidden="true" tabindex="-1"></a><span class="ot">makeFancyType ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">FancyType</span></span>
+<span id="11-12"><a href="#11-12" aria-hidden="true" tabindex="-1"></a>makeFancyType [] <span class="ot">=</span> <span class="dt">Nothing</span></span>
+<span id="11-13"><a href="#11-13" aria-hidden="true" tabindex="-1"></a>makeFancyType s  <span class="ot">=</span> <span class="dt">Just</span> <span class="op">$</span> <span class="dt">FancyConstructor</span> s</span>
+<span id="11-14"><a href="#11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="11-15"><a href="#11-15" aria-hidden="true" tabindex="-1"></a><span class="ot">you ::</span> <span class="dt">String</span></span>
+<span id="11-16"><a href="#11-16" aria-hidden="true" tabindex="-1"></a>you <span class="ot">=</span> <span class="st">&quot;you&quot;</span></span>
+<span id="11-17"><a href="#11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="11-18"><a href="#11-18" aria-hidden="true" tabindex="-1"></a><span class="ot">bar ::</span> <span class="dt">Int</span></span>
+<span id="11-19"><a href="#11-19" aria-hidden="true" tabindex="-1"></a>bar <span class="ot">=</span> <span class="dv">3</span></span></code></pre></div>
+</div>
+<p><em>Note this code uses Maybe which we will cover in another post.</em> Now users of our module will have to use <em>makeFancyType</em> in order to construct <em>FancyType</em>!</p>
+<h2 id="controlling-imports">Controlling Imports</h2>
+<p>There are also language mechanisms to control what you import from another module. For example if in <em>Main</em> we only cared about the <em>you</em> function from the <em>Foo</em> module then we could do the following:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="12"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="12-1"><a href="#12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span></span>
+<span id="12-2"><a href="#12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="12-3"><a href="#12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Foo</span> (you)</span>
+<span id="12-4"><a href="#12-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Utils.Baz</span></span>
+<span id="12-5"><a href="#12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="12-6"><a href="#12-6" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="12-7"><a href="#12-7" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> <span class="fu">putStrLn</span> <span class="st">&quot;Hello, Haskell!&quot;</span></span></code></pre></div>
+</div>
+<p>Now only the <em>you</em> function will be imported from the <em>Foo</em> module. This of course presupposes that <em>Foo</em> actually exports the <em>you</em> function. This can be useful when we don’t want to muddy up our namespace with a bunch of functions from another module. <em>Note this is also a comma separated list just like the exports list.</em> When importing many large modules it can become confusing to determine from which module a given function is coming from. Luckily Haskell allows us to do <em>qualified imports</em>. These let us name an imported module which in turn let’s us be explicit which module a given function is coming from. For example:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="13"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="13-1"><a href="#13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span></span>
+<span id="13-2"><a href="#13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="13-3"><a href="#13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Foo</span> <span class="kw">as</span> <span class="dt">F</span></span>
+<span id="13-4"><a href="#13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Utils.Baz</span></span>
+<span id="13-5"><a href="#13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="13-6"><a href="#13-6" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="13-7"><a href="#13-7" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="13-8"><a href="#13-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> F.you</span>
+<span id="13-9"><a href="#13-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">putStrLn</span> <span class="st">&quot;Hello, Haskell!&quot;</span></span></code></pre></div>
+</div>
+<p>Now we know exactly where the <em>you</em> function is coming from.</p>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </footer>
+
+        <script src="../js/copy-code.js"></script>
+    </body>
+</html>

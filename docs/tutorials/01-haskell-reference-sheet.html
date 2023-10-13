@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Haughskell - Haskell Reference Sheet</title>
+        <link rel="stylesheet" href="../css/solarized.css" />
+        <link rel="stylesheet" href="../css/default.css" />
+        <link rel="stylesheet" href="../css/syntax.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">Haughskell</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <!-- <a href="/contact.html">Contact</a> -->
+                <!-- <a href="/archive.html">Archive</a> -->
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>Haskell Reference Sheet</h1>
+            <article>
+    <section class="header">
+        
+    </section>
+    <section>
+        <h2 id="haskell-source-file-structure">Haskell Source File Structure</h2>
+<p>Haskell files contain a collection of mutually recursive
+function. This means that the order you declare your functions
+does not matter. Each Haskell file should begin with a capital
+letter and end with the <em>.hs</em> file extension.</p>
+<h2 id="ghci-glasgow-haskell-compiler-interactive">GHCI (Glasgow Haskell Compiler Interactive)</h2>
+<p>In order to test the functions in your Haskell source file you will
+need to use <em>ghci</em>. <em>ghci</em> allows you to load your Haskell source file
+into an interactive <em>REPL</em> (Read Eval Print Loop) in which you can test
+your functions.</p>
+<h3 id="commands-to-remember">Commands To Remember</h3>
+<ul>
+<li>“:l” or “:load” : Attempts to load the given Haskell file. Note you do not include <em>.hs</em> if you are loading
+from within <em>ghci</em>.</li>
+<li>“:r” or “:reload” : Attempts to reload the currently loaded Haskell file.</li>
+<li>“:t” or “:type” : Tells you the type of a given function.</li>
+<li>“:i” or “:info” : Gives you more information about the given function.</li>
+<li>More detailed information can be found <a href="https://downloads.haskell.org/ghc/latest/docs/users_guide/ghci.html">here</a></li>
+</ul>
+<h3 id="load">Loading A File</h3>
+<p>To load a file named <em>HaskellFile.hs</em> into <em>ghci</em> run the
+following commands in your terminal:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">bash</span><a href="javascript:void(0);" class="copy-button" data-copy-target="0"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="0"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="0-1"><a href="#0-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> folder/containing/file</span>
+<span id="0-2"><a href="#0-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ghci</span> HaskellFile.hs</span></code></pre></div>
+</div>
+<p>This will attempt to load your source file, if there are errors
+it will print them out. After you have made changes to the file you must
+reload it in <em>ghci</em> in order for those changes to be reflected. You can
+do this by typing “:r” or “:reload” into <em>ghci</em>. This will attempt to reload your file displaying errors if they exist.</p>
+<h3 id="general-workflow">General Workflow</h3>
+<ol type="1">
+<li>Create a Haskell source file or open an existing one</li>
+<li>Open a terminal in the same directory as the file in step 1</li>
+<li>Load the file into ghci</li>
+<li>Make changes to your Haskell source file</li>
+<li>Attempt to reload the file in ghci</li>
+<li>Fix any compile errors</li>
+<li>Test your code</li>
+<li>Repeat from step 4</li>
+</ol>
+<h2 id="haskell-language-constructs">Haskell Language Constructs</h2>
+<h3 id="writing-simple-functions">Writing Simple Functions</h3>
+<p>A simple Haskell function to add 1 to its argument is given as follows:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="1"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="1-1"><a href="#1-1" aria-hidden="true" tabindex="-1"></a>add1 x <span class="ot">=</span> x <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
+</div>
+<p>Haskell functions consist of three key pieces:</p>
+<ol type="1">
+<li>Function name</li>
+<li>Function arguments</li>
+<li>Body expression</li>
+</ol>
+<p>In this example the function name is “add1”, its takes 1 argument “x”
+and returns the body expression “x + 1”.</p>
+<p>The general shape of a function is</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="2"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="2-1"><a href="#2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>function_name<span class="op">&gt;</span> <span class="op">&lt;</span>function_arguments<span class="op">&gt;</span> <span class="ot">=</span> <span class="op">&lt;</span>function body<span class="op">&gt;</span></span></code></pre></div>
+</div>
+<p>You can <a href="#load">load</a> this file into <em>ghci</em> and try to use the function
+by typing the following:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="3"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="3-1"><a href="#3-1" aria-hidden="true" tabindex="-1"></a>add1 <span class="dv">2</span></span></code></pre></div>
+</div>
+<p>Which should report back <em>3</em>.</p>
+<h3 id="types">Types</h3>
+<p>Haskell is a strictly typed language so where are the types in the
+example above? They are there but if we leave them off then Haskell
+tries to <em>infer</em> the correct type of the function. Before we look at
+what type Haskell thinks this expression has let’s first give it a
+type ourselves. Types in Haskell are written on a separate line above
+the function. For example if we wanted to claim that <em>add1</em> takes an
+<em>Int</em> as an argument and returns an <em>Int</em> then we would write the
+following:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="4"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="4-1"><a href="#4-1" aria-hidden="true" tabindex="-1"></a><span class="ot">add1 ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="4-2"><a href="#4-2" aria-hidden="true" tabindex="-1"></a>add1 x <span class="ot">=</span> x <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
+</div>
+<p>This is called a <em>type signature</em>. A <em>type signature</em> has three key
+pieces:</p>
+<ol type="1">
+<li>Function name</li>
+<li>Constraints (optional)</li>
+<li>Function type</li>
+</ol>
+<p>A general <em>type signature</em> looks as follows:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="5"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="5-1"><a href="#5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>function_name<span class="op">&gt;</span><span class="ot"> ::</span> <span class="op">&lt;</span>function_constraints<span class="op">&gt;</span> <span class="ot">=&gt;</span> <span class="op">&lt;</span>function_type<span class="op">&gt;</span></span></code></pre></div>
+</div>
+<p>Note that in the previous example we did impose any constraints on our
+function and we will discuss this feature further down. (TODO: Add link
+to constraints/typeclasses)</p>
+<p>We can now <a href="#load">load</a> our file into <em>ghci</em> then type:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">repl</span><a href="javascript:void(0);" class="copy-button" data-copy-target="6"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="6-1"><a href="#6-1" aria-hidden="true" tabindex="-1"></a><span class="op">:</span><span class="kw">type</span> add1</span></code></pre></div>
+</div>
+<p>Which should report:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="7"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="7-1"><a href="#7-1" aria-hidden="true" tabindex="-1"></a><span class="ot">add1 ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></span></code></pre></div>
+</div>
+<h3 id="built-in-types">Built-in Types</h3>
+<p>As with any other statically types language Haskell has several built-in
+types. We have already seen <em>Int</em> put here is a list of most of them:</p>
+<ul>
+<li>Integer - unbounded signed integer</li>
+<li>Int - 32/64 bit signed integer</li>
+<li>Word - 32/64 bit unsigned integer</li>
+<li>Float - single precision IEEE floating point value</li>
+<li>Double - double precision IEEE floating point value</li>
+<li>Bool - boolean value</li>
+<li>Char - single character, written with ’’</li>
+<li>String - string which is represented as a list of Char, written with “”</li>
+</ul>
+<h3 id="type-inference">Type Inference</h3>
+<p>You may be asking yourself how the original add1 example worked without
+you having to explicitly give it a <em>type signature</em>. Well Haskell has a
+feature called <em>type inference</em> which can <em>infer</em> the type of most
+functions without you having to explicitly state it! This is an
+extremely powerful feature of Haskell. So what would type would Haskell
+have inferred for the <em>add1</em> function if we hadn’t stated it explicitly?
+Well we can easily find out by removing the <em>type signature</em> the
+<a href="#load">loading</a> the file into <em>ghci</em>. Once in <em>ghci</em> we can ask for
+the type of the function again by typing:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">repl</span><a href="javascript:void(0);" class="copy-button" data-copy-target="8"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="8-1"><a href="#8-1" aria-hidden="true" tabindex="-1"></a><span class="op">:</span><span class="kw">type</span> add1</span></code></pre></div>
+</div>
+<p>It should report:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="9"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="9-1"><a href="#9-1" aria-hidden="true" tabindex="-1"></a><span class="ot">add1 ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> a</span></code></pre></div>
+</div>
+<p>Hmm doesn’t look at all like the <em>type signature</em> we gave it,
+<em>Int -&gt; Int</em>. What is this <em>Num</em> thing?? Remember when I said previously
+that constraints were optional in a <em>type signature</em>? Well <em>Num</em> is an
+example of a constraint. Constraints in Haskell are achieved using a
+language construct called a <em>typeclass</em>. We will go over this topic in
+more detail in a later section. (TODO: put typeclass link here)
+For now though it is sufficient to realize that Haskell will always
+try to infer the most general type. To realize why this is the most
+general type ask yourself what operations did <em>add1</em> perform on its
+argument? Well it used the <em>+</em> operator on it. Then ask yourself well
+what types does the <em>+</em> function expect? To find out ask <em>ghci</em></p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">repl</span><a href="javascript:void(0);" class="copy-button" data-copy-target="10"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="10-1"><a href="#10-1" aria-hidden="true" tabindex="-1"></a><span class="op">:</span><span class="kw">type</span> (<span class="op">+</span>)</span></code></pre></div>
+</div>
+<p>Should report:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="11"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="11-1"><a href="#11-1" aria-hidden="true" tabindex="-1"></a><span class="ot">(+) ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> a</span></code></pre></div>
+</div>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </footer>
+
+        <script src="../js/copy-code.js"></script>
+    </body>
+</html>

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Haughskell - Creating Cabal Projects</title>
+        <link rel="stylesheet" href="../css/solarized.css" />
+        <link rel="stylesheet" href="../css/default.css" />
+        <link rel="stylesheet" href="../css/syntax.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">Haughskell</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <!-- <a href="/contact.html">Contact</a> -->
+                <!-- <a href="/archive.html">Archive</a> -->
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>Creating Cabal Projects</h1>
+            <article>
+    <section class="header">
+        
+    </section>
+    <section>
+        <h1 id="how-to-create-a-haskell-cabal-project">How To Create A Haskell Cabal Project</h1>
+<h2 id="installing-cabal">Installing Cabal</h2>
+<p>Use <a href="https://www.haskell.org/ghcup/">ghcup</a> to install <em>cabal</em> if you haven’t already. Make sure to note which directory it installs into. To check if it is installed first restart your computer then open a terminal and try typing:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">bash</span><a href="javascript:void(0);" class="copy-button" data-copy-target="0"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="0"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="0-1"><a href="#0-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cabal</span> <span class="at">--version</span></span></code></pre></div>
+</div>
+<p>If that runs successfully and shows you a version number then you are good to go.</p>
+<h3 id="diagnosing-problems">Diagnosing Problems</h3>
+<p>If <em>cabal</em> is not showing up in your terminal then it probably means that either:</p>
+<ul>
+<li>The installation was not successful in which case try rerunning <a href="https://www.haskell.org/ghcup/">ghcup</a></li>
+<li>The <em>cabal</em> folder is not on your <em>path</em>.
+<ul>
+<li>Your <em>path</em> variable is used by the command line to know where to search for executables.</li>
+<li>In order to add to your path variable on windows do the following:
+<ol type="1">
+<li>Type into the search bar “environment”</li>
+<li>Click on “Edit the system environment variables”</li>
+<li>Click on “Environment Variables…” button</li>
+<li>Click on “Path” in the upper choice box</li>
+<li>Click “Edit…”</li>
+<li>Click “New”</li>
+<li>Type in the path to the <em>cabal</em> executable. Make sure that whichever folder you enter contains the actual executable (i.e. not the folder above it).</li>
+<li>Save/apply everything</li>
+<li>Close any existing terminals, reopen a terminal and try to run <em>cabal</em> again.</li>
+</ol></li>
+<li>In order to add to your path variable on linux/mac do the following:
+<ol type="1">
+<li><p>Open .bashrc which resides in your home folder (~). If you are using another shell then open the corresponding file.</p></li>
+<li><p>Add the following lines:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">bash</span><a href="javascript:void(0);" class="copy-button" data-copy-target="1"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="1-1"><a href="#1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">&quot;path/to/cabal&quot;</span>:<span class="st">&quot;</span><span class="va">$PATH</span><span class="st">&quot;</span></span></code></pre></div>
+</div>
+<p><em>Note you need to change the path in the first string to be your systems path to the cabal executable. Also note that the syntax here is very rigid so make sure to copy that exactly. For example you cannot put spaces on either side of the equals.</em></p></li>
+<li><p>Now you can restart a terminal and try running cabal again. You can verify that your path was updated correctly by running the following:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">bash</span><a href="javascript:void(0);" class="copy-button" data-copy-target="2"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="2-1"><a href="#2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$PATH</span><span class="st">&quot;</span></span></code></pre></div>
+</div>
+<p>That should show the new path you entered.</p></li>
+</ol></li>
+</ul></li>
+</ul>
+<h2 id="what-is-cabal">What is cabal?</h2>
+<p><em>Cabal</em> is a build tool and package manager for Haskell. You can view the documentation <a href="https://cabal.readthedocs.io/en/stable/">here</a>.</p>
+<h2 id="creating-a-project">Creating A Project</h2>
+<p>Now that you have <em>cabal</em> make a directory where you want your project to live. Then open a terminal in this directory and run the following command:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">bash</span><a href="javascript:void(0);" class="copy-button" data-copy-target="3"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="3-1"><a href="#3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cabal</span> init</span></code></pre></div>
+</div>
+<p>You will be asked a series of questions in order to start your project. Keep all of the defaults, the only choice you have to make is which license to use. Now that your project is created run the following command:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">bash</span><a href="javascript:void(0);" class="copy-button" data-copy-target="4"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="4-1"><a href="#4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cabal</span> run</span></code></pre></div>
+</div>
+<p>This should first build your project then print out “Hello Haskell!”</p>
+<h2 id="project-structure">Project Structure</h2>
+<p>Let’s take a look at what was created.</p>
+<h3 id="app-directory">App Directory</h3>
+<p>This directory is where all of your Haskell source files should live. When you add a new source file you will need to add it to the <a href="#other-modules">other-modules</a> field of your .cabal file. Since you will now have to deal with multiple files let’s take a quick detour and talk about Haskell modules.</p>
+<h3 id="haskell-modules">Haskell Modules</h3>
+<p>When in a Haskell <em>cabal</em> project every file must begin with an explicit module declaration. This is similar to packages in Java. For example let’s say you create a file named <em>Foo.hs</em> then the beginning of the file would look as follows:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="5"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="5-1"><a href="#5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">Foo</span> <span class="kw">where</span></span>
+<span id="5-2"><a href="#5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="5-3"><a href="#5-3" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span></code></pre></div>
+</div>
+<p>Note that you do not include the file extension here. Also note that the module name must exactly match the name of the file and must be capitalized. Thus, you need to make sure to start all of your Haskell source files with capital letters. I discuss modules more <a href="TODO:%20Add%20modules%20tutorial">here</a>.</p>
+<h3 id="cabal-file">*.cabal File</h3>
+<p>Your .cabal file (which is named after the name of your project) contains all of the configuration for you Haskell project. If you accepted all of the defaults then each field should have a verbose description. Let’s go over the most important fields:</p>
+<ul>
+<li>All the fields before the <em>executable</em> field generally won’t need to be changed.</li>
+<li><em>executable</em>: there is really only 2 fields you will likely want to change:
+<ul>
+<li><em>other-modules</em>: When you add a new Haskell source file to the <em>app</em> directory then you also need to add it to this field. <em>Note that you only add the module name here which is basically the name of the file without .hs.</em> {#other-modules}</li>
+<li><em>build-depends</em>: this is where you can import a library. For example if you wanted to use the <a href="https://hackage.haskell.org/package/gloss">gloss</a> library then you would add “gloss” to this field. Note that this field is a series of comma separated values. Thus, it would likely look like the following:</li>
+</ul></li>
+</ul>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="6"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="6-1"><a href="#6-1" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span>
+<span id="6-2"><a href="#6-2" aria-hidden="true" tabindex="-1"></a>executable foo</span>
+<span id="6-3"><a href="#6-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="6-4"><a href="#6-4" aria-hidden="true" tabindex="-1"></a>    build<span class="op">-</span>depends<span class="op">:</span>  base <span class="op">^&gt;=</span><span class="fl">4.15</span><span class="op">.</span><span class="fl">1.0</span></span>
+<span id="6-5"><a href="#6-5" aria-hidden="true" tabindex="-1"></a>                  , gloss</span>
+<span id="6-6"><a href="#6-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="6-7"><a href="#6-7" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span></code></pre></div>
+</div>
+<p><em>Note that the library name is always what is shown in the URL after “package/”. Also note that you do not need to include version numbers like you see on base.</em></p>
+<h2 id="building-your-project">Building Your Project</h2>
+<p>Now that you have added a library it is time to rebuild your project. Run the following command at the root of your project:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">bash</span><a href="javascript:void(0);" class="copy-button" data-copy-target="7"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="7-1"><a href="#7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cabal</span> build</span></code></pre></div>
+</div>
+<p>This will pull down any new libraries that you have added as well as compiling your code. You can then run:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">bash</span><a href="javascript:void(0);" class="copy-button" data-copy-target="8"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="8-1"><a href="#8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cabal</span> run</span></code></pre></div>
+</div>
+<p>to rerun your project.</p>
+<h2 id="general-workflow">General Workflow</h2>
+<p>Note that plain old <em>ghci</em> is usually not sufficient in a <em>cabal</em> project as it doesn’t pull in your libraries. Thus, you should instead use <em>cabal repl</em> instead. This command acts the same as <em>ghci</em> except that it pulls in your libraries.</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">bash</span><a href="javascript:void(0);" class="copy-button" data-copy-target="9"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="9-1"><a href="#9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cabal</span> repl</span></code></pre></div>
+</div>
+<ol type="1">
+<li><p>First make changes to your source code.</p></li>
+<li><p>Save all changes.</p></li>
+<li><p>Go into your repl and load the file(s) you have been making changes to.</p></li>
+<li><p>See if it compiles, if it doesn’t then make the necessary to changes to make it compile.</p></li>
+<li><p>If it does compile then test your code in the repl.</p></li>
+<li><p>Once your code has been compiled and tested in the repl, go back to the command line and run:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">bash</span><a href="javascript:void(0);" class="copy-button" data-copy-target="10"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="10-1"><a href="#10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cabal</span> build</span>
+<span id="10-2"><a href="#10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cabal</span> run</span></code></pre></div>
+</div></li>
+<li><p>Repeat from step 1.</p></li>
+</ol>
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://www.haskell.org/ghcup/">ghcup</a></li>
+<li><a href="https://www.haskell.org/cabal/">cabal homepage</a></li>
+<li><a href="https://cabal.readthedocs.io/en/stable/">cabal user guide</a></li>
+</ul>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </footer>
+
+        <script src="../js/copy-code.js"></script>
+    </body>
+</html>
