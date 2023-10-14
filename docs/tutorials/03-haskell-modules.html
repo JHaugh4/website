@@ -11,16 +11,30 @@
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="../">Haughskell</a>
+            <div class="subheader">
+                <div class="logo">
+                    <a href="../">
+                        <img src="../images/haskell-logo-purple-with-words.png" />
+                    </a>
+                </div>
+                <!-- <nav>
+                    <a href="/">Home</a>
+                    <a href="/about.html">About</a>
+                </nav> -->
+                <div class="dropdown-left">
+                    <button class="dropbtn">
+                        <img class="dropbtn" src="../images/threelines.png" />
+                    </button>
+                    <div id="dropdown-id" class="dropdown-content">
+                      <a href="#">Link 1</a>
+                      <a href="#">Link 2</a>
+                      <a href="#">Link 3</a>
+                    </div>
+                </div>
             </div>
-            <nav>
-                <a href="../">Home</a>
-                <a href="../about.html">About</a>
-                <!-- <a href="/contact.html">Contact</a> -->
-                <!-- <a href="/archive.html">Archive</a> -->
-            </nav>
         </header>
+
+        <!-- <hr> -->
 
         <main role="main">
             <h1>Haskell Modules</h1>
@@ -29,9 +43,9 @@
         
     </section>
     <section>
-        <h1 id="haskell-modules">Haskell Modules</h1>
+        <h1 id="haskell-modules"><a href="#haskell-modules" id="haskell-modules">Haskell Modules</a></h1>
 <p>Haskell modules are closely tied to source files. Each source file can only contain 1 module. The module name must match the name of the source file it is contained within (<em>without .hs</em>).</p>
-<h2 id="module-example">Module Example</h2>
+<h2 id="module-example"><a href="#module-example" id="module-example">Module Example</a></h2>
 <p>For example let’s say our project’s folder structure looks as follows:</p>
 <pre><code>project
 |--app
@@ -194,7 +208,7 @@
 <span id="5-2"><a href="#5-2" aria-hidden="true" tabindex="-1"></a>                , <span class="dt">Utils.Baz</span></span></code></pre></div>
 </div>
 <p>Now we can use the function from <em>Utils.Baz</em> in <em>Main</em>.</p>
-<h2 id="controlling-exports">Controlling Exports</h2>
+<h2 id="controlling-exports"><a href="#controlling-exports" id="controlling-exports">Controlling Exports</a></h2>
 <p>By default a module exposes all of the functions and datatypes contained within them. This is usually not desirable as we often want to only expose some of the function. This is easily achievable with Haskell modules. For example let’s say we only wanted to export the <em>baz</em> function from <em>Baz.hs</em>, we would then have to change the file to be the following:</p>
 <div class="code-container">
 <div class="code-header">
@@ -289,7 +303,7 @@
 <span id="10-14"><a href="#10-14" aria-hidden="true" tabindex="-1"></a>bar <span class="ot">=</span> <span class="dv">3</span></span></code></pre></div>
 </div>
 <p>Voila! You may be asking yourself well why wouldn’t we just export everything anyway? The answer is an idiom called <em>smart constructors</em>.</p>
-<h3 id="smart-constructors">Smart Constructors</h3>
+<h3 id="smart-constructors"><a href="#smart-constructors" id="smart-constructors">Smart Constructors</a></h3>
 <p>A <em>smart constructor</em> is the idea of having a function to produce your type rather than the automatically provided data constructor. The reason for this is because then you can do input checking before actually constructing your datatype. For example say that we wanted a <em>smart constructor</em> for <em>FancyType</em> to make sure that the input string was non-empty. We also want to only export the type and our <em>smart constructor</em>, our file would look as follows:</p>
 <div class="code-container">
 <div class="code-header">
@@ -316,7 +330,7 @@
 <span id="11-19"><a href="#11-19" aria-hidden="true" tabindex="-1"></a>bar <span class="ot">=</span> <span class="dv">3</span></span></code></pre></div>
 </div>
 <p><em>Note this code uses Maybe which we will cover in another post.</em> Now users of our module will have to use <em>makeFancyType</em> in order to construct <em>FancyType</em>!</p>
-<h2 id="controlling-imports">Controlling Imports</h2>
+<h2 id="controlling-imports"><a href="#controlling-imports" id="controlling-imports">Controlling Imports</a></h2>
 <p>There are also language mechanisms to control what you import from another module. For example if in <em>Main</em> we only cared about the <em>you</em> function from the <em>Foo</em> module then we could do the following:</p>
 <div class="code-container">
 <div class="code-header">
@@ -357,5 +371,6 @@
         </footer>
 
         <script src="../js/copy-code.js"></script>
+        <script src="../js/drop-down.js"></script>
     </body>
 </html>

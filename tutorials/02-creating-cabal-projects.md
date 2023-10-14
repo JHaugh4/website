@@ -88,7 +88,7 @@ module Foo where
 ...
 ```
 
-Note that you do not include the file extension here. Also note that the module name must exactly match the name of the file and must be capitalized. Thus, you need to make sure to start all of your Haskell source files with capital letters. I discuss modules more [here](TODO: Add modules tutorial).
+Note that you do not include the file extension here. Also note that the module name must exactly match the name of the file and must be capitalized. Thus, you need to make sure to start all of your Haskell source files with capital letters. I discuss modules more [here](03-haskell-modules.html).
 
 ### *.cabal File
 

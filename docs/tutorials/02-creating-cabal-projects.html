@@ -11,16 +11,30 @@
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="../">Haughskell</a>
+            <div class="subheader">
+                <div class="logo">
+                    <a href="../">
+                        <img src="../images/haskell-logo-purple-with-words.png" />
+                    </a>
+                </div>
+                <!-- <nav>
+                    <a href="/">Home</a>
+                    <a href="/about.html">About</a>
+                </nav> -->
+                <div class="dropdown-left">
+                    <button class="dropbtn">
+                        <img class="dropbtn" src="../images/threelines.png" />
+                    </button>
+                    <div id="dropdown-id" class="dropdown-content">
+                      <a href="#">Link 1</a>
+                      <a href="#">Link 2</a>
+                      <a href="#">Link 3</a>
+                    </div>
+                </div>
             </div>
-            <nav>
-                <a href="../">Home</a>
-                <a href="../about.html">About</a>
-                <!-- <a href="/contact.html">Contact</a> -->
-                <!-- <a href="/archive.html">Archive</a> -->
-            </nav>
         </header>
+
+        <!-- <hr> -->
 
         <main role="main">
             <h1>Creating Cabal Projects</h1>
@@ -29,8 +43,8 @@
         
     </section>
     <section>
-        <h1 id="how-to-create-a-haskell-cabal-project">How To Create A Haskell Cabal Project</h1>
-<h2 id="installing-cabal">Installing Cabal</h2>
+        <h1 id="how-to-create-a-haskell-cabal-project"><a href="#how-to-create-a-haskell-cabal-project" id="how-to-create-a-haskell-cabal-project">How To Create A Haskell Cabal Project</a></h1>
+<h2 id="installing-cabal"><a href="#installing-cabal" id="installing-cabal">Installing Cabal</a></h2>
 <p>Use <a href="https://www.haskell.org/ghcup/">ghcup</a> to install <em>cabal</em> if you haven’t already. Make sure to note which directory it installs into. To check if it is installed first restart your computer then open a terminal and try typing:</p>
 <div class="code-container">
 <div class="code-header">
@@ -39,7 +53,7 @@
 <div class="sourceCode" id="0"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="0-1"><a href="#0-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cabal</span> <span class="at">--version</span></span></code></pre></div>
 </div>
 <p>If that runs successfully and shows you a version number then you are good to go.</p>
-<h3 id="diagnosing-problems">Diagnosing Problems</h3>
+<h3 id="diagnosing-problems"><a href="#diagnosing-problems" id="diagnosing-problems">Diagnosing Problems</a></h3>
 <p>If <em>cabal</em> is not showing up in your terminal then it probably means that either:</p>
 <ul>
 <li>The installation was not successful in which case try rerunning <a href="https://www.haskell.org/ghcup/">ghcup</a></li>
@@ -80,9 +94,9 @@
 </ol></li>
 </ul></li>
 </ul>
-<h2 id="what-is-cabal">What is cabal?</h2>
+<h2 id="what-is-cabal"><a href="#what-is-cabal" id="what-is-cabal">What is cabal?</a></h2>
 <p><em>Cabal</em> is a build tool and package manager for Haskell. You can view the documentation <a href="https://cabal.readthedocs.io/en/stable/">here</a>.</p>
-<h2 id="creating-a-project">Creating A Project</h2>
+<h2 id="creating-a-project"><a href="#creating-a-project" id="creating-a-project">Creating A Project</a></h2>
 <p>Now that you have <em>cabal</em> make a directory where you want your project to live. Then open a terminal in this directory and run the following command:</p>
 <div class="code-container">
 <div class="code-header">
@@ -98,11 +112,11 @@
 <div class="sourceCode" id="4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="4-1"><a href="#4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cabal</span> run</span></code></pre></div>
 </div>
 <p>This should first build your project then print out “Hello Haskell!”</p>
-<h2 id="project-structure">Project Structure</h2>
+<h2 id="project-structure"><a href="#project-structure" id="project-structure">Project Structure</a></h2>
 <p>Let’s take a look at what was created.</p>
-<h3 id="app-directory">App Directory</h3>
+<h3 id="app-directory"><a href="#app-directory" id="app-directory">App Directory</a></h3>
 <p>This directory is where all of your Haskell source files should live. When you add a new source file you will need to add it to the <a href="#other-modules">other-modules</a> field of your .cabal file. Since you will now have to deal with multiple files let’s take a quick detour and talk about Haskell modules.</p>
-<h3 id="haskell-modules">Haskell Modules</h3>
+<h3 id="haskell-modules"><a href="#haskell-modules" id="haskell-modules">Haskell Modules</a></h3>
 <p>When in a Haskell <em>cabal</em> project every file must begin with an explicit module declaration. This is similar to packages in Java. For example let’s say you create a file named <em>Foo.hs</em> then the beginning of the file would look as follows:</p>
 <div class="code-container">
 <div class="code-header">
@@ -112,8 +126,8 @@
 <span id="5-2"><a href="#5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="5-3"><a href="#5-3" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span></code></pre></div>
 </div>
-<p>Note that you do not include the file extension here. Also note that the module name must exactly match the name of the file and must be capitalized. Thus, you need to make sure to start all of your Haskell source files with capital letters. I discuss modules more <a href="TODO:%20Add%20modules%20tutorial">here</a>.</p>
-<h3 id="cabal-file">*.cabal File</h3>
+<p>Note that you do not include the file extension here. Also note that the module name must exactly match the name of the file and must be capitalized. Thus, you need to make sure to start all of your Haskell source files with capital letters. I discuss modules more <a href="03-haskell-modules.html">here</a>.</p>
+<h3 id="cabal-file"><a href="#cabal-file" id="cabal-file">*.cabal File</a></h3>
 <p>Your .cabal file (which is named after the name of your project) contains all of the configuration for you Haskell project. If you accepted all of the defaults then each field should have a verbose description. Let’s go over the most important fields:</p>
 <ul>
 <li>All the fields before the <em>executable</em> field generally won’t need to be changed.</li>
@@ -136,7 +150,7 @@
 <span id="6-7"><a href="#6-7" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span></code></pre></div>
 </div>
 <p><em>Note that the library name is always what is shown in the URL after “package/”. Also note that you do not need to include version numbers like you see on base.</em></p>
-<h2 id="building-your-project">Building Your Project</h2>
+<h2 id="building-your-project"><a href="#building-your-project" id="building-your-project">Building Your Project</a></h2>
 <p>Now that you have added a library it is time to rebuild your project. Run the following command at the root of your project:</p>
 <div class="code-container">
 <div class="code-header">
@@ -152,7 +166,7 @@
 <div class="sourceCode" id="8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="8-1"><a href="#8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cabal</span> run</span></code></pre></div>
 </div>
 <p>to rerun your project.</p>
-<h2 id="general-workflow">General Workflow</h2>
+<h2 id="general-workflow"><a href="#general-workflow" id="general-workflow">General Workflow</a></h2>
 <p>Note that plain old <em>ghci</em> is usually not sufficient in a <em>cabal</em> project as it doesn’t pull in your libraries. Thus, you should instead use <em>cabal repl</em> instead. This command acts the same as <em>ghci</em> except that it pulls in your libraries.</p>
 <div class="code-container">
 <div class="code-header">
@@ -176,7 +190,7 @@
 </div></li>
 <li><p>Repeat from step 1.</p></li>
 </ol>
-<h2 id="further-reading">Further Reading</h2>
+<h2 id="further-reading"><a href="#further-reading" id="further-reading">Further Reading</a></h2>
 <ul>
 <li><a href="https://www.haskell.org/ghcup/">ghcup</a></li>
 <li><a href="https://www.haskell.org/cabal/">cabal homepage</a></li>
@@ -193,5 +207,6 @@
         </footer>
 
         <script src="../js/copy-code.js"></script>
+        <script src="../js/drop-down.js"></script>
     </body>
 </html>

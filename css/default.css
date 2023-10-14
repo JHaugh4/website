@@ -12,7 +12,12 @@ header {
   border-bottom: 0.2rem solid var(--base02);
 }
 
-nav {
+.subheader {
+  display: flow-root;
+}
+ 
+
+/* nav {
   text-align: right;
 }
 
@@ -22,7 +27,7 @@ nav a {
   color: var(--base03);
   text-decoration: none;
   text-transform: uppercase;
-}
+} */
 
 footer {
   margin-top: 3rem;
@@ -36,8 +41,36 @@ h1 {
   font-size: 2.4rem;
 }
 
+h1 a {
+  color: var(--base00);
+}
+
 h2 {
   font-size: 2rem;
+}
+
+h2 a {
+  color: var(--base00);
+}
+
+h3 a {
+  color: var(--base00);
+}
+
+h4 a {
+  color: var(--base00);
+}
+
+h5 a {
+  color: var(--base00);
+}
+
+h6 a {
+  color: var(--base00);
+}
+
+hr {
+  color: var(--base03);
 }
 
 article .header {
@@ -51,10 +84,6 @@ article .header {
   color: var(--base03);
   text-decoration: none;
 }
-
-/* pre.sourceCode, code.sourceCode {
-  background-color: #1a1a1aa1;
-} */
 
 /* div.sourceCode {  uncomment for code blocks background color to not match screen width
   display: inline-block;
@@ -116,6 +145,61 @@ div.sourceCode {
   display: none;
   margin-left: 5px;
 }
+
+.logo img {
+  float: left;
+  width: auto;
+  height: 1.8em;
+}
+
+.dropbtn img {
+  display: block;
+  width: auto;
+  height: 1.8em;
+}
+
+/* Navbar drop down */
+/* Style The Dropdown Button */
+.dropbtn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  float: right !important;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on click */
+.dropdown-content.show {display:block;}
+
+
+/* */
 
 @media (max-width: 319px) {
   body {

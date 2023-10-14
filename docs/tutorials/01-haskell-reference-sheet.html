@@ -11,16 +11,30 @@
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="../">Haughskell</a>
+            <div class="subheader">
+                <div class="logo">
+                    <a href="../">
+                        <img src="../images/haskell-logo-purple-with-words.png" />
+                    </a>
+                </div>
+                <!-- <nav>
+                    <a href="/">Home</a>
+                    <a href="/about.html">About</a>
+                </nav> -->
+                <div class="dropdown-left">
+                    <button class="dropbtn">
+                        <img class="dropbtn" src="../images/threelines.png" />
+                    </button>
+                    <div id="dropdown-id" class="dropdown-content">
+                      <a href="#">Link 1</a>
+                      <a href="#">Link 2</a>
+                      <a href="#">Link 3</a>
+                    </div>
+                </div>
             </div>
-            <nav>
-                <a href="../">Home</a>
-                <a href="../about.html">About</a>
-                <!-- <a href="/contact.html">Contact</a> -->
-                <!-- <a href="/archive.html">Archive</a> -->
-            </nav>
         </header>
+
+        <!-- <hr> -->
 
         <main role="main">
             <h1>Haskell Reference Sheet</h1>
@@ -29,17 +43,17 @@
         
     </section>
     <section>
-        <h2 id="haskell-source-file-structure">Haskell Source File Structure</h2>
+        <h2 id="haskell-source-file-structure"><a href="#haskell-source-file-structure" id="haskell-source-file-structure">Haskell Source File Structure</a></h2>
 <p>Haskell files contain a collection of mutually recursive
 function. This means that the order you declare your functions
 does not matter. Each Haskell file should begin with a capital
 letter and end with the <em>.hs</em> file extension.</p>
-<h2 id="ghci-glasgow-haskell-compiler-interactive">GHCI (Glasgow Haskell Compiler Interactive)</h2>
+<h2 id="ghci-glasgow-haskell-compiler-interactive"><a href="#ghci-glasgow-haskell-compiler-interactive" id="ghci-glasgow-haskell-compiler-interactive">GHCI (Glasgow Haskell Compiler Interactive)</a></h2>
 <p>In order to test the functions in your Haskell source file you will
 need to use <em>ghci</em>. <em>ghci</em> allows you to load your Haskell source file
 into an interactive <em>REPL</em> (Read Eval Print Loop) in which you can test
 your functions.</p>
-<h3 id="commands-to-remember">Commands To Remember</h3>
+<h3 id="commands-to-remember"><a href="#commands-to-remember" id="commands-to-remember">Commands To Remember</a></h3>
 <ul>
 <li>“:l” or “:load” : Attempts to load the given Haskell file. Note you do not include <em>.hs</em> if you are loading
 from within <em>ghci</em>.</li>
@@ -48,7 +62,7 @@ from within <em>ghci</em>.</li>
 <li>“:i” or “:info” : Gives you more information about the given function.</li>
 <li>More detailed information can be found <a href="https://downloads.haskell.org/ghc/latest/docs/users_guide/ghci.html">here</a></li>
 </ul>
-<h3 id="load">Loading A File</h3>
+<h3 id="load"><a href="#load" id="load">Loading A File</a></h3>
 <p>To load a file named <em>HaskellFile.hs</em> into <em>ghci</em> run the
 following commands in your terminal:</p>
 <div class="code-container">
@@ -62,7 +76,7 @@ following commands in your terminal:</p>
 it will print them out. After you have made changes to the file you must
 reload it in <em>ghci</em> in order for those changes to be reflected. You can
 do this by typing “:r” or “:reload” into <em>ghci</em>. This will attempt to reload your file displaying errors if they exist.</p>
-<h3 id="general-workflow">General Workflow</h3>
+<h3 id="general-workflow"><a href="#general-workflow" id="general-workflow">General Workflow</a></h3>
 <ol type="1">
 <li>Create a Haskell source file or open an existing one</li>
 <li>Open a terminal in the same directory as the file in step 1</li>
@@ -73,8 +87,8 @@ do this by typing “:r” or “:reload” into <em>ghci</em>. This will attemp
 <li>Test your code</li>
 <li>Repeat from step 4</li>
 </ol>
-<h2 id="haskell-language-constructs">Haskell Language Constructs</h2>
-<h3 id="writing-simple-functions">Writing Simple Functions</h3>
+<h2 id="haskell-language-constructs"><a href="#haskell-language-constructs" id="haskell-language-constructs">Haskell Language Constructs</a></h2>
+<h3 id="writing-simple-functions"><a href="#writing-simple-functions" id="writing-simple-functions">Writing Simple Functions</a></h3>
 <p>A simple Haskell function to add 1 to its argument is given as follows:</p>
 <div class="code-container">
 <div class="code-header">
@@ -106,7 +120,7 @@ by typing the following:</p>
 <div class="sourceCode" id="3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="3-1"><a href="#3-1" aria-hidden="true" tabindex="-1"></a>add1 <span class="dv">2</span></span></code></pre></div>
 </div>
 <p>Which should report back <em>3</em>.</p>
-<h3 id="types">Types</h3>
+<h3 id="types"><a href="#types" id="types">Types</a></h3>
 <p>Haskell is a strictly typed language so where are the types in the
 example above? They are there but if we leave them off then Haskell
 tries to <em>infer</em> the correct type of the function. Before we look at
@@ -153,7 +167,7 @@ to constraints/typeclasses)</p>
 </div>
 <div class="sourceCode" id="7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="7-1"><a href="#7-1" aria-hidden="true" tabindex="-1"></a><span class="ot">add1 ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></span></code></pre></div>
 </div>
-<h3 id="built-in-types">Built-in Types</h3>
+<h3 id="built-in-types"><a href="#built-in-types" id="built-in-types">Built-in Types</a></h3>
 <p>As with any other statically types language Haskell has several built-in
 types. We have already seen <em>Int</em> put here is a list of most of them:</p>
 <ul>
@@ -166,7 +180,7 @@ types. We have already seen <em>Int</em> put here is a list of most of them:</p>
 <li>Char - single character, written with ’’</li>
 <li>String - string which is represented as a list of Char, written with “”</li>
 </ul>
-<h3 id="type-inference">Type Inference</h3>
+<h3 id="type-inference"><a href="#type-inference" id="type-inference">Type Inference</a></h3>
 <p>You may be asking yourself how the original add1 example worked without
 you having to explicitly give it a <em>type signature</em>. Well Haskell has a
 feature called <em>type inference</em> which can <em>infer</em> the type of most
@@ -224,5 +238,6 @@ what types does the <em>+</em> function expect? To find out ask <em>ghci</em></p
         </footer>
 
         <script src="../js/copy-code.js"></script>
+        <script src="../js/drop-down.js"></script>
     </body>
 </html>

@@ -14,6 +14,7 @@ import Text.Pandoc.Options      (ReaderOptions (..), WriterOptions (..))
 import Debug.Trace
 
 import PandocFilters.CopyCodeFilter
+import PandocFilters.HeaderLinksFilter
 import Text.Pandoc.Walk (walkM)
 
 import Control.Monad.State.Strict
@@ -118,7 +119,7 @@ pandocCompilerWithStyleTransform =
     defaultHakyllWriterOptions
       { writerHighlightStyle   = Just pandocCodeStyle
       }
-    (\b -> evalState (walkM addCopyButton b) 0)
+    (\b -> evalState (walkM (addCopyButton . addHeaderLink) b) 0)
 
 color :: Int -> Maybe ST.Color
 color = ST.toColor
