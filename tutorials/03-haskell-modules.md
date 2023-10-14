@@ -87,17 +87,20 @@ license-file:       LICENSE
 -- The package author(s).
 author:             Joseph Haugh
 
--- An email address to which users can send suggestions, bug reports, and patches.
+-- An email address to which users can send suggestions, 
+-- bug reports, and patches.
 maintainer:         glue500@unm.edu
 
 -- A copyright notice.
 -- copyright:
 build-type:         Simple
 
--- Extra doc files to be distributed with the package, such as a CHANGELOG or a README.
+-- Extra doc files to be distributed with the package, 
+-- such as a CHANGELOG or a README.
 extra-doc-files:    CHANGELOG.md
 
--- Extra source files to be distributed with the package, such as examples, or a tutorial module.
+-- Extra source files to be distributed with the package, 
+-- such as examples, or a tutorial module.
 -- extra-source-files:
 
 common warnings

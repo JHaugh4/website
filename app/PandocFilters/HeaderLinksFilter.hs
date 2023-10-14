@@ -13,6 +13,7 @@ import Debug.Trace
 addHeaderLink :: Block -> Block
 addHeaderLink h@(Header level attr@(i, classes, namevals) contents) =
     Header level attr [ Link attr contents (append "#" i, "")]
+    -- Header level attr [ Link attr contents (append "#" i, "")]
     -- Div ("", [], [])
     --     [ h
     --     , Plain 

@@ -21,7 +21,7 @@
                     <a href="/">Home</a>
                     <a href="/about.html">About</a>
                 </nav> -->
-                <div class="dropdown-left">
+                <div class="dropdown">
                     <button class="dropbtn">
                         <img class="dropbtn" src="../images/threelines.png" />
                     </button>
@@ -124,43 +124,46 @@
 <span id="2-37"><a href="#2-37" aria-hidden="true" tabindex="-1"></a><span class="co">-- The package author(s).</span></span>
 <span id="2-38"><a href="#2-38" aria-hidden="true" tabindex="-1"></a>author<span class="op">:</span>             <span class="dt">Joseph</span> <span class="dt">Haugh</span></span>
 <span id="2-39"><a href="#2-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="2-40"><a href="#2-40" aria-hidden="true" tabindex="-1"></a><span class="co">-- An email address to which users can send suggestions, bug reports, and patches.</span></span>
-<span id="2-41"><a href="#2-41" aria-hidden="true" tabindex="-1"></a>maintainer<span class="op">:</span>         glue500<span class="op">@</span>unm<span class="op">.</span>edu</span>
-<span id="2-42"><a href="#2-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="2-43"><a href="#2-43" aria-hidden="true" tabindex="-1"></a><span class="co">-- A copyright notice.</span></span>
-<span id="2-44"><a href="#2-44" aria-hidden="true" tabindex="-1"></a><span class="co">-- copyright:</span></span>
-<span id="2-45"><a href="#2-45" aria-hidden="true" tabindex="-1"></a>build<span class="op">-</span><span class="kw">type</span><span class="op">:</span>         <span class="dt">Simple</span></span>
-<span id="2-46"><a href="#2-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="2-47"><a href="#2-47" aria-hidden="true" tabindex="-1"></a><span class="co">-- Extra doc files to be distributed with the package, such as a CHANGELOG or a README.</span></span>
-<span id="2-48"><a href="#2-48" aria-hidden="true" tabindex="-1"></a>extra<span class="op">-</span>doc<span class="op">-</span>files<span class="op">:</span>    CHANGELOG.md</span>
-<span id="2-49"><a href="#2-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="2-50"><a href="#2-50" aria-hidden="true" tabindex="-1"></a><span class="co">-- Extra source files to be distributed with the package, such as examples, or a tutorial module.</span></span>
-<span id="2-51"><a href="#2-51" aria-hidden="true" tabindex="-1"></a><span class="co">-- extra-source-files:</span></span>
-<span id="2-52"><a href="#2-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="2-53"><a href="#2-53" aria-hidden="true" tabindex="-1"></a>common warnings</span>
-<span id="2-54"><a href="#2-54" aria-hidden="true" tabindex="-1"></a>    ghc<span class="op">-</span>options<span class="op">:</span> <span class="op">-</span><span class="dt">Wall</span></span>
+<span id="2-40"><a href="#2-40" aria-hidden="true" tabindex="-1"></a><span class="co">-- An email address to which users can send suggestions, </span></span>
+<span id="2-41"><a href="#2-41" aria-hidden="true" tabindex="-1"></a><span class="co">-- bug reports, and patches.</span></span>
+<span id="2-42"><a href="#2-42" aria-hidden="true" tabindex="-1"></a>maintainer<span class="op">:</span>         glue500<span class="op">@</span>unm<span class="op">.</span>edu</span>
+<span id="2-43"><a href="#2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-44"><a href="#2-44" aria-hidden="true" tabindex="-1"></a><span class="co">-- A copyright notice.</span></span>
+<span id="2-45"><a href="#2-45" aria-hidden="true" tabindex="-1"></a><span class="co">-- copyright:</span></span>
+<span id="2-46"><a href="#2-46" aria-hidden="true" tabindex="-1"></a>build<span class="op">-</span><span class="kw">type</span><span class="op">:</span>         <span class="dt">Simple</span></span>
+<span id="2-47"><a href="#2-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-48"><a href="#2-48" aria-hidden="true" tabindex="-1"></a><span class="co">-- Extra doc files to be distributed with the package, </span></span>
+<span id="2-49"><a href="#2-49" aria-hidden="true" tabindex="-1"></a><span class="co">-- such as a CHANGELOG or a README.</span></span>
+<span id="2-50"><a href="#2-50" aria-hidden="true" tabindex="-1"></a>extra<span class="op">-</span>doc<span class="op">-</span>files<span class="op">:</span>    CHANGELOG.md</span>
+<span id="2-51"><a href="#2-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-52"><a href="#2-52" aria-hidden="true" tabindex="-1"></a><span class="co">-- Extra source files to be distributed with the package, </span></span>
+<span id="2-53"><a href="#2-53" aria-hidden="true" tabindex="-1"></a><span class="co">-- such as examples, or a tutorial module.</span></span>
+<span id="2-54"><a href="#2-54" aria-hidden="true" tabindex="-1"></a><span class="co">-- extra-source-files:</span></span>
 <span id="2-55"><a href="#2-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="2-56"><a href="#2-56" aria-hidden="true" tabindex="-1"></a>executable testing</span>
-<span id="2-57"><a href="#2-57" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Import common warning flags.</span></span>
-<span id="2-58"><a href="#2-58" aria-hidden="true" tabindex="-1"></a>    <span class="kw">import</span>:           warnings</span>
-<span id="2-59"><a href="#2-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="2-60"><a href="#2-60" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- .hs or .lhs file containing the Main module.</span></span>
-<span id="2-61"><a href="#2-61" aria-hidden="true" tabindex="-1"></a>    main<span class="op">-</span>is<span class="op">:</span>          Main.hs</span>
+<span id="2-56"><a href="#2-56" aria-hidden="true" tabindex="-1"></a>common warnings</span>
+<span id="2-57"><a href="#2-57" aria-hidden="true" tabindex="-1"></a>    ghc<span class="op">-</span>options<span class="op">:</span> <span class="op">-</span><span class="dt">Wall</span></span>
+<span id="2-58"><a href="#2-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-59"><a href="#2-59" aria-hidden="true" tabindex="-1"></a>executable testing</span>
+<span id="2-60"><a href="#2-60" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Import common warning flags.</span></span>
+<span id="2-61"><a href="#2-61" aria-hidden="true" tabindex="-1"></a>    <span class="kw">import</span>:           warnings</span>
 <span id="2-62"><a href="#2-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="2-63"><a href="#2-63" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Modules included in this executable, other than Main.</span></span>
-<span id="2-64"><a href="#2-64" aria-hidden="true" tabindex="-1"></a>    other<span class="op">-</span>modules<span class="op">:</span>    <span class="dt">Foo</span></span>
+<span id="2-63"><a href="#2-63" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- .hs or .lhs file containing the Main module.</span></span>
+<span id="2-64"><a href="#2-64" aria-hidden="true" tabindex="-1"></a>    main<span class="op">-</span>is<span class="op">:</span>          Main.hs</span>
 <span id="2-65"><a href="#2-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="2-66"><a href="#2-66" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- LANGUAGE extensions used by modules in this package.</span></span>
-<span id="2-67"><a href="#2-67" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- other-extensions:</span></span>
+<span id="2-66"><a href="#2-66" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Modules included in this executable, other than Main.</span></span>
+<span id="2-67"><a href="#2-67" aria-hidden="true" tabindex="-1"></a>    other<span class="op">-</span>modules<span class="op">:</span>    <span class="dt">Foo</span></span>
 <span id="2-68"><a href="#2-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="2-69"><a href="#2-69" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Other library packages from which modules are imported.</span></span>
-<span id="2-70"><a href="#2-70" aria-hidden="true" tabindex="-1"></a>    build<span class="op">-</span>depends<span class="op">:</span>    base <span class="op">^&gt;=</span><span class="fl">4.15</span><span class="op">.</span><span class="fl">1.0</span></span>
+<span id="2-69"><a href="#2-69" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- LANGUAGE extensions used by modules in this package.</span></span>
+<span id="2-70"><a href="#2-70" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- other-extensions:</span></span>
 <span id="2-71"><a href="#2-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="2-72"><a href="#2-72" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Directories containing source files.</span></span>
-<span id="2-73"><a href="#2-73" aria-hidden="true" tabindex="-1"></a>    hs<span class="op">-</span>source<span class="op">-</span>dirs<span class="op">:</span>   app</span>
+<span id="2-72"><a href="#2-72" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Other library packages from which modules are imported.</span></span>
+<span id="2-73"><a href="#2-73" aria-hidden="true" tabindex="-1"></a>    build<span class="op">-</span>depends<span class="op">:</span>    base <span class="op">^&gt;=</span><span class="fl">4.15</span><span class="op">.</span><span class="fl">1.0</span></span>
 <span id="2-74"><a href="#2-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="2-75"><a href="#2-75" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Base language which the package is written in.</span></span>
-<span id="2-76"><a href="#2-76" aria-hidden="true" tabindex="-1"></a>    default<span class="op">-</span>language<span class="op">:</span> <span class="dt">Haskell2010</span></span></code></pre></div>
+<span id="2-75"><a href="#2-75" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Directories containing source files.</span></span>
+<span id="2-76"><a href="#2-76" aria-hidden="true" tabindex="-1"></a>    hs<span class="op">-</span>source<span class="op">-</span>dirs<span class="op">:</span>   app</span>
+<span id="2-77"><a href="#2-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-78"><a href="#2-78" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Base language which the package is written in.</span></span>
+<span id="2-79"><a href="#2-79" aria-hidden="true" tabindex="-1"></a>    default<span class="op">-</span>language<span class="op">:</span> <span class="dt">Haskell2010</span></span></code></pre></div>
 </div>
 <p>For now everything is fairly simple. We have two Haskell source files that both reside in a flat folder structure. When we added <em>Foo.hs</em> we also made sure to add it to the <em>other-modules</em> field in our <em>project.cabal</em>. All is well in the world. However, what if we want to start structuring our source code hierarchy with some folders? Well let’s see how this would play out. Let’s add a folder called “Utils” and put a Haskell file called “Baz.hs” in there. Thus, our folder structure would look as follows:</p>
 <pre><code>project
