@@ -54,12 +54,12 @@ extra-doc-files:    CHANGELOG.md
 common warnings
     ghc-options: -Wall
 
-library posts
-    import: warnings
-    hs-source-dirs: src-tutorials
-    exposed-modules: HaskellIntro
-    build-depends:    base ^>=4.15.1.0
-    default-language: Haskell2010
+-- library posts
+--     import: warnings
+--     hs-source-dirs: src-tutorials
+--     exposed-modules: HaskellIntro
+--     build-depends:    base ^>=4.15.1.0
+--     default-language: Haskell2010
     
 executable website
     -- Import common warning flags.

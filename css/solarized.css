@@ -16,12 +16,3 @@
   --cyan: #2aa198;
   --green: #859900;
 }
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --base3: #002b36;
-    --base2: #073642;
-    --base1: #586e75;
-    --base0: #657b83;
-  }
-} */

@@ -48,7 +48,7 @@ main = hakyllWith config $ do
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ pandocCompilerWithStyleTransform
-            >>= loadAndApplyTemplate "templates/post.html"    dateCtx
+            >>= loadAndApplyTemplate "templates/blog-post.html"    dateCtx
             >>= loadAndApplyTemplate "templates/default.html" dateCtx
             >>= relativizeUrls
 
@@ -59,29 +59,44 @@ main = hakyllWith config $ do
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
-    create ["archive.html"] $ do
+    create ["blog-post-archive.html"] $ do
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
+            blogPosts <- recentFirst =<< loadAll "blog-posts/*"
             let archiveCtx =
-                    listField "posts" dateCtx (return posts) <>
-                    constField "title" "Archives"            <>
+                    listField "blog-posts" dateCtx (return blogPosts) <>
+                    constField "title" "Blog Post Archive"            <>
                     defaultContext
 
             makeItem ""
-                >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
+                >>= loadAndApplyTemplate "templates/blog-post-archive.html" archiveCtx
+                >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+                >>= relativizeUrls
+
+    create ["tutorial-archive.html"] $ do
+        route idRoute
+        compile $ do
+            tutorials <- chronological =<< loadAll "tutorials/*"
+            let archiveCtx =
+                    listField "tutorials" dateCtx (return tutorials) <>
+                    constField "title" "Tutorial Archive"            <>
+                    defaultContext
+
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/tutorial-archive.html" archiveCtx
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
     match "index.html" $ do
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
-            tutorials <- recentFirst =<< loadAll "tutorials/*"
+            let numToShow = 5
+            tutorials <- take numToShow <$> (chronological =<< loadAll "tutorials/*")
+            blogPosts <- take numToShow <$> (recentFirst =<< loadAll "blog-posts/*")
             let indexCtx =
-                    listField "tutorials" defaultContext (return tutorials) <>
-                    listField "posts" dateCtx (return posts) <>
-                    defaultContext 
+                    listField "tutorials" dateCtx (return tutorials) <>
+                    listField "blog-posts" dateCtx (return blogPosts)       <>
+                    defaultContext
 
             getResourceBody
                 >>= applyAsTemplate indexCtx
