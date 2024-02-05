@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Haughskell - $title$</title>
+    <link rel="stylesheet" href="/css/solarized.css">
+    <link rel="stylesheet" href="/revealjs/dist/reset.css">
+    <link rel="stylesheet" href="/revealjs/dist/reveal.css">
+    <link rel="stylesheet" href="/revealjs/dist/theme/solarized.css" id="theme">
+    <link rel="stylesheet" href="/revealjs/plugin/highlight/solarized-light.css">
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            $if(title)$
+            <section>
+            <h1 class="title">$title$</h1>
+            $if(subtitle)$
+            <p class="subtitle">$subtitle$</p>
+            $endif$
+            $if(author)$
+            <p class="author">$author$</p>
+            $endif$
+            $if(institute)$
+            <p class="institute">$institute$</p>
+            $endif$
+            $if(date)$
+            <p class="date">$date$</p>
+            $endif$
+            </section>
+            $endif$
+            $if(toc)$
+            <section id="$idprefix$TOC">
+            <nav role="doc-toc"> 
+            $if(toc-title)$
+            <h2 id="$idprefix$toc-title">$toc-title$</h2>
+            $endif$
+            $table-of-contents$
+            </nav>
+            </section>
+            $endif$
+            
+            $body$
+        </div>
+    </div>
+
+    <script src="/revealjs/dist/reveal.js"></script>
+    <script src="/revealjs/plugin/zoom/zoom.js"></script>
+    <script src="/revealjs/plugin/notes/notes.js"></script>
+    <script src="/revealjs/plugin/search/search.js"></script>
+    <script src="/revealjs/plugin/markdown/markdown.js"></script>
+    <script src="/revealjs/plugin/highlight/highlight.js"></script>
+    <script src="/revealjs/plugin/math/math.js"></script>
+    <script>
+        Reveal.initialize({
+            controls: false,
+            progress: false,
+            hash: true,
+            center: true,
+            plugins: [ 
+                RevealZoom, RevealNotes, 
+                RevealSearch, RevealMarkdown, 
+                RevealHighlight, RevealMath.KaTeX
+            ]
+        });
+    </script>
+</body>

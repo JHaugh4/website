@@ -8,6 +8,8 @@ import Hakyll.Web.Pandoc
 import qualified Skylighting.Types as ST
 import qualified Data.Map as Map
 
+import Text.Pandoc
+import Text.Pandoc.Writers (writeRevealJs)
 import Text.Pandoc.Highlighting (Style, breezeDark, styleToCss)
 import Text.Pandoc.Options      (ReaderOptions (..), WriterOptions (..))
 
@@ -15,9 +17,14 @@ import Debug.Trace
 
 import PandocFilters.CopyCodeFilter
 import PandocFilters.HeaderLinksFilter
-import Text.Pandoc.Walk (walkM)
+import PandocFilters.RevealLineHighlightingFilter
+
+import Text.Pandoc.Walk (walk, walkM)
 
 import Control.Monad.State.Strict
+
+import Data.Text (Text)
+import qualified Data.Text as T
 
 config :: Configuration
 config = defaultConfiguration
@@ -41,22 +48,28 @@ main = hakyllWith config $ do
 
     match (fromList ["about.md", "contact.markdown"]) $ do
         route   $ setExtension "html"
-        compile $ pandocCompilerWithStyleTransform
+        compile $ blogCompilerWithStyleTransform
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompilerWithStyleTransform
-            >>= loadAndApplyTemplate "templates/blog-post.html"    dateCtx
+        compile $ blogCompilerWithStyleTransform
+            >>= loadAndApplyTemplate "templates/blog-post.html" dateCtx
             >>= loadAndApplyTemplate "templates/default.html" dateCtx
             >>= relativizeUrls
 
     match "tutorials/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompilerWithStyleTransform
+        compile $ blogCompilerWithStyleTransform
             >>= loadAndApplyTemplate "templates/tutorial.html" defaultContext
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            >>= relativizeUrls
+
+    match "slides/*" $ do
+        route $ setExtension "html"
+        compile $ slidesCompilerWithTransform
+            >>= loadAndApplyTemplate "templates/slides.html" slidesContext
             >>= relativizeUrls
 
     create ["blog-post-archive.html"] $ do
@@ -90,9 +103,8 @@ main = hakyllWith config $ do
     match "index.html" $ do
         route idRoute
         compile $ do
-            let numToShow = 5
-            tutorials <- take numToShow <$> (chronological =<< loadAll "tutorials/*")
-            blogPosts <- take numToShow <$> (recentFirst =<< loadAll "blog-posts/*")
+            tutorials <- chronological =<< loadAll "tutorials/*"
+            blogPosts <- take 5 <$> (recentFirst =<< loadAll "blog-posts/*")
             let indexCtx =
                     listField "tutorials" dateCtx (return tutorials) <>
                     listField "blog-posts" dateCtx (return blogPosts)       <>
@@ -109,6 +121,10 @@ main = hakyllWith config $ do
         route   idRoute
         compile copyFileCompiler
 
+    match "revealjs/**" $ do
+        route idRoute
+        compile copyFileCompiler
+
 --------------------------------------------------------------------------------
 dateCtx :: Context String
 dateCtx =
@@ -116,25 +132,70 @@ dateCtx =
     defaultContext
 
 --------------------------------------------------------------------------------
-pandocCodeStyle :: Style
-pandocCodeStyle = solarizedDark
+-- Blog compiler
 
-pandocCompilerWithStyle :: Compiler (Item String)
-pandocCompilerWithStyle =
-  pandocCompilerWith
-    defaultHakyllReaderOptions
-    defaultHakyllWriterOptions
-      { writerHighlightStyle   = Just pandocCodeStyle
-      }
-
-pandocCompilerWithStyleTransform :: Compiler (Item String)
-pandocCompilerWithStyleTransform =
+blogCompilerWithStyleTransform :: Compiler (Item String)
+blogCompilerWithStyleTransform =
   pandocCompilerWithTransform
     defaultHakyllReaderOptions
     defaultHakyllWriterOptions
       { writerHighlightStyle   = Just pandocCodeStyle
       }
     (\b -> evalState (walkM (addCopyButton . addHeaderLink) b) 0)
+
+
+
+--------------------------------------------------------------------------------
+-- Slides compiler
+
+slidesContext :: Context String
+slidesContext =
+    constField "author" "Joseph Haugh" <>
+    constField "institute" "University of New Mexico" <>
+    defaultContext
+
+slidesCompilerWithTransform :: Compiler (Item String)
+slidesCompilerWithTransform = 
+  pandocRevealCompilerWithTransform
+    defaultHakyllReaderOptions
+    defaultHakyllWriterOptions
+    (walk convertToReveal)
+
+--------------------------------------------------------------------------------
+-- | Write a document (as reveal HTML) using pandoc, with the supplied options
+writePandocRevealWith :: WriterOptions  -- ^ Writer options for pandoc
+                      -> Item Pandoc    -- ^ Document to write
+                      -> Item String    -- ^ Resulting HTML
+writePandocRevealWith wopt (Item itemi doc) =
+    case runPure $ writeRevealJs wopt doc of
+        Left err    -> error $ "Hakyll.Web.Pandoc.writePandocRevealWith: " ++ show err
+        Right item' -> Item itemi $ T.unpack item'
+
+--------------------------------------------------------------------------------
+-- | Render the resource using pandoc
+renderPandocRevealWithTransform :: ReaderOptions 
+                                -> WriterOptions
+                                -> (Pandoc -> Pandoc) 
+                                -> Item String 
+                                -> Compiler (Item String)
+renderPandocRevealWithTransform ropt wopt f item =
+    writePandocRevealWith wopt <$> (fmap . fmap) f (readPandocWith ropt item)
+
+--------------------------------------------------------------------------------
+-- | A version of 'pandocCompiler' which allows you to specify your own pandoc
+-- options
+pandocRevealCompilerWithTransform :: ReaderOptions 
+                                  -> WriterOptions 
+                                  -> (Pandoc -> Pandoc)
+                                  -> Compiler (Item String)
+pandocRevealCompilerWithTransform ropt wopt f =
+    getResourceBody >>= renderPandocRevealWithTransform ropt wopt f
+
+--------------------------------------------------------------------------------
+-- Styles
+
+pandocCodeStyle :: Style
+pandocCodeStyle = solarizedDark
 
 color :: Int -> Maybe ST.Color
 color = ST.toColor

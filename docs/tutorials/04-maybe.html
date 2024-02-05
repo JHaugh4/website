@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Haughskell - Representing Failure</title>
+    <link rel="stylesheet" href="../css/solarized.css" />
+    <link rel="stylesheet" href="../css/default.css" />
+    <link rel="stylesheet" href="../css/syntax.css" />
+</head>
+
+<body>
+    <header>
+        <div class="subheader">
+            <div class="logo">
+                <a href="../">
+                    <img src="../images/haskell-logo-purple-with-words.png" />
+                </a>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">
+                    <img class="dropbtn" src="../images/threelines.png" />
+                </button>
+                <div id="dropdown-id" class="dropdown-content">
+                    <a href="../">Home</a>
+                    <a href="../tutorial-archive.html">Tutorials</a>
+                    <a href="../blog-post-archive.html">Blog</a>
+                    <a href="../about.html">About Me</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main role="main">
+        <h1>Representing Failure</h1>
+        <article>
+    <section class="header">
+        
+    </section>
+    <section>
+        <p>Outline:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="0"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="0" data-file="blog-posts/RepresentingFailure.hs"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="0-1"><a href="#0-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">RepresentingFailure</span> <span class="kw">where</span></span>
+<span id="0-2"><a href="#0-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="0-3"><a href="#0-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;</span>safeDiv<span class="op">&gt;&gt;</span></span>
+<span id="0-4"><a href="#0-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;</span>safeHead<span class="op">&gt;&gt;</span></span>
+<span id="0-5"><a href="#0-5" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;</span>safeTail<span class="op">&gt;&gt;</span></span>
+<span id="0-6"><a href="#0-6" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;</span>safeHeadPair1<span class="op">&gt;&gt;</span></span>
+<span id="0-7"><a href="#0-7" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;</span>safeHeadPair2<span class="op">&gt;&gt;</span></span>
+<span id="0-8"><a href="#0-8" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;</span>caseMatch<span class="op">&gt;&gt;</span></span>
+<span id="0-9"><a href="#0-9" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;</span>safeHeadPair2CM<span class="op">&gt;&gt;</span></span>
+<span id="0-10"><a href="#0-10" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;</span>unsafeEverySecondElem<span class="op">&gt;&gt;</span></span>
+<span id="0-11"><a href="#0-11" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;</span>fish<span class="op">&gt;&gt;</span></span>
+<span id="0-12"><a href="#0-12" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;</span>flipStructure<span class="op">&gt;&gt;</span></span>
+<span id="0-13"><a href="#0-13" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;</span>safeEverySecondElem<span class="op">&gt;&gt;</span></span>
+<span id="0-14"><a href="#0-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="0-15"><a href="#0-15" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;</span>safeHeadPair2Do<span class="op">&gt;&gt;</span></span>
+<span id="0-16"><a href="#0-16" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;&lt;</span>safeEverySecondElemTrav<span class="op">&gt;&gt;</span></span></code></pre></div>
+</div>
+<p>Representing failure is one of the most important aspects of writing in a programming language. Thus, there are many ways of doing it but today we will focus on three:</p>
+<ol type="1">
+<li>Magic values</li>
+<li>Null pointers</li>
+<li>Exceptions</li>
+</ol>
+<h1 id="magic-values"><a href="#magic-values" id="magic-values">Magic Values</a></h1>
+<p>In a language such as C functions often return <em>ints</em> but how then do you let the caller know that the function failed. Well one possible way is to reserve a special value that when returned signals that something went wrong. This can work but it requires coordination between the caller and callee. This is not ideal as then both must remain in sync otherwise the program might crash. It is also not ideal because you cannot give any context back to the caller about exactly what went wrong.</p>
+<h1 id="null-pointers"><a href="#null-pointers" id="null-pointers">Null Pointers</a></h1>
+<p>Often referred to as the “billion dollar mistake” by the inventor of the concept, Tony Hoare, null pointers have a nasty reputation. Why is that? Well it is much the same reason as magic values, there always must be a coordination between caller and callee. Null pointers take it a step further though since they can show up in any return type not just numbers! This means that in order for your program to be truly null-safe you must check the output of every function call to make sure it didn’t return a null pointer. This is hard to do in practice and makes your program more tedious to write.</p>
+<h1 id="exceptions"><a href="#exceptions" id="exceptions">Exceptions</a></h1>
+<p>Lastly you can use exceptions to represent failure. This is the best of the three methods other languages use as it does allow you to include context about what went wrong to the caller. However, it can still suffer from the problem of coordination and puts the responsibility on the programmer to check for exceptions when necessary. Some languages such as Java alleviate this with <em>checked</em> exceptions which force the programmer to handle exceptions. Although this is a good start the programmer can still choose to essentially ignore the exception by simply printing out the error.</p>
+<h1 id="haskells-solution"><a href="#haskells-solution" id="haskells-solution">Haskell’s Solution</a></h1>
+<p>How does Haskell handle failure? Well you can still use magic values and exceptions in Haskell but it is not advised. Instead we can make use of the type system to encode failure directly. Think about what this datatype might look like? Well we want it to be able to represent when the computation failed and when it succeeded. This is a perfect fit for a <em>Sum</em> type! One branch can represent failure and the other success. We will start with a type which holds no information about the failure but we will see how we can add this later. This type is called <em>Maybe</em> in Haskell and is defined as follows:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="1"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="1-1"><a href="#1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Maybe</span> a <span class="ot">=</span> <span class="dt">Nothing</span> <span class="op">|</span> <span class="dt">Just</span> a</span></code></pre></div>
+</div>
+<p>One branch to represent failure (<em>Nothing</em>) and another to represent success (<em>Just</em>). Notice <em>Maybe</em> is parameterized by <em>a</em>. This is because this datatype is simple a holder for another datatype and doesn’t need to know anything about what kind of data it is holding in order to be used. Now how can we use this datatype? Well a classic example is writing a function to safely do division. As we all know we cannot divide by 0 in programming, to avoid this let’s write a function which checks if the divisor is 0. If it is then we return <em>Nothing</em>, otherwise we return <em>Just</em> with the result of the division inside:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="2"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="2-1"><a href="#2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">safeDiv ::</span> <span class="dt">Float</span> <span class="ot">-&gt;</span> <span class="dt">Float</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Float</span></span>
+<span id="2-2"><a href="#2-2" aria-hidden="true" tabindex="-1"></a>safeDiv <span class="fu">numerator</span> divisor</span>
+<span id="2-3"><a href="#2-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> divisor <span class="op">==</span> <span class="dv">0</span> <span class="ot">=</span> <span class="dt">Nothing</span></span>
+<span id="2-4"><a href="#2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> <span class="fu">otherwise</span>    <span class="ot">=</span> <span class="dt">Just</span> (<span class="fu">numerator</span> <span class="op">/</span> divisor)</span>
+<span id="2-5"><a href="#2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-6"><a href="#2-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeDiv 10 5</span></span>
+<span id="2-7"><a href="#2-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- Just 2.0</span></span>
+<span id="2-8"><a href="#2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="2-9"><a href="#2-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeDiv 10 0</span></span>
+<span id="2-10"><a href="#2-10" aria-hidden="true" tabindex="-1"></a><span class="co">-- Nothing</span></span></code></pre></div>
+</div>
+<p>Hurray! No more runtime errors when dividing! What other functions can we make safer? How about the <em>head</em> function?</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="3"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="3-1"><a href="#3-1" aria-hidden="true" tabindex="-1"></a><span class="ot">safeHead ::</span> [a] <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a</span>
+<span id="3-2"><a href="#3-2" aria-hidden="true" tabindex="-1"></a>safeHead []     <span class="ot">=</span> <span class="dt">Nothing</span></span>
+<span id="3-3"><a href="#3-3" aria-hidden="true" tabindex="-1"></a>safeHead (x<span class="op">:</span>xs) <span class="ot">=</span> <span class="dt">Just</span> x</span>
+<span id="3-4"><a href="#3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="3-5"><a href="#3-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeHead []</span></span>
+<span id="3-6"><a href="#3-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Nothing</span></span>
+<span id="3-7"><a href="#3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="3-8"><a href="#3-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeHead [1,2,3]</span></span>
+<span id="3-9"><a href="#3-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- Just 1</span></span></code></pre></div>
+</div>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="4"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="4-1"><a href="#4-1" aria-hidden="true" tabindex="-1"></a><span class="ot">safeTail ::</span> [a] <span class="ot">-&gt;</span> <span class="dt">Maybe</span> [a]</span>
+<span id="4-2"><a href="#4-2" aria-hidden="true" tabindex="-1"></a>safeTail []     <span class="ot">=</span> <span class="dt">Nothing</span></span>
+<span id="4-3"><a href="#4-3" aria-hidden="true" tabindex="-1"></a>safeTail (x<span class="op">:</span>xs) <span class="ot">=</span> <span class="dt">Just</span> xs</span>
+<span id="4-4"><a href="#4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="4-5"><a href="#4-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeTail []</span></span>
+<span id="4-6"><a href="#4-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Nothing</span></span>
+<span id="4-7"><a href="#4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="4-8"><a href="#4-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeTail [1,2,3]</span></span>
+<span id="4-9"><a href="#4-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- Just [2,3]</span></span></code></pre></div>
+</div>
+<p>Any function which was not total, has a defined output for every input, can now be made total using <em>Maybe</em>! Let’s see one more example before we talk about the drawbacks of this approach. What if we wanted to take a pair of lists and call <em>safeHead</em> on both elements of the pair, what type would this function have? Well your first thought might be a function like this:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="5"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="5-1"><a href="#5-1" aria-hidden="true" tabindex="-1"></a><span class="ot">safeHeadPair1 ::</span> ([a], [b]) <span class="ot">-&gt;</span> (<span class="dt">Maybe</span> a, <span class="dt">Maybe</span> b)</span>
+<span id="5-2"><a href="#5-2" aria-hidden="true" tabindex="-1"></a>safeHeadPair1 (xs, ys) <span class="ot">=</span> (safeHead xs, safeHead ys)</span>
+<span id="5-3"><a href="#5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="5-4"><a href="#5-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeHeadPair1 ([1,2,3], [4,5])</span></span>
+<span id="5-5"><a href="#5-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- (Just 1,Just 4)</span></span>
+<span id="5-6"><a href="#5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="5-7"><a href="#5-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeHeadPair1 ([], [4,5])</span></span>
+<span id="5-8"><a href="#5-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- (Nothing,Just 4)</span></span>
+<span id="5-9"><a href="#5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="5-10"><a href="#5-10" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeHeadPair1 ([1,2,3], [])</span></span>
+<span id="5-11"><a href="#5-11" aria-hidden="true" tabindex="-1"></a><span class="co">-- (Just 1,Nothing)</span></span></code></pre></div>
+</div>
+<p>Using this method we get more fine grained control over failure, each computation can fail <em>independently</em> of the other. This could be what we want but what if instead we wanted each computation to be <em>dependent</em> on the other? Or in other words if one fails then the whole computation fails. What type would the function then have? Perhaps something like this:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="6"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="6-1"><a href="#6-1" aria-hidden="true" tabindex="-1"></a><span class="ot">safeHeadPair2 ::</span> ([a], [b]) <span class="ot">-&gt;</span> <span class="dt">Maybe</span> (a, b)</span>
+<span id="6-2"><a href="#6-2" aria-hidden="true" tabindex="-1"></a>safeHeadPair2 (xs, ys) <span class="ot">=</span> </span>
+<span id="6-3"><a href="#6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">case</span> safeHead xs <span class="kw">of</span></span>
+<span id="6-4"><a href="#6-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">Nothing</span> <span class="ot">-&gt;</span> <span class="dt">Nothing</span></span>
+<span id="6-5"><a href="#6-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">Just</span> x  <span class="ot">-&gt;</span> </span>
+<span id="6-6"><a href="#6-6" aria-hidden="true" tabindex="-1"></a>            <span class="kw">case</span> safeHead ys <span class="kw">of</span></span>
+<span id="6-7"><a href="#6-7" aria-hidden="true" tabindex="-1"></a>                <span class="dt">Nothing</span> <span class="ot">-&gt;</span> <span class="dt">Nothing</span></span>
+<span id="6-8"><a href="#6-8" aria-hidden="true" tabindex="-1"></a>                <span class="dt">Just</span> y  <span class="ot">-&gt;</span> <span class="dt">Just</span> (x, y)</span>
+<span id="6-9"><a href="#6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="6-10"><a href="#6-10" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeHeadPair2 ([1,2,3], [4,5])</span></span>
+<span id="6-11"><a href="#6-11" aria-hidden="true" tabindex="-1"></a><span class="co">-- Just (1,4)</span></span>
+<span id="6-12"><a href="#6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="6-13"><a href="#6-13" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeHeadPair2 ([], [4,5])</span></span>
+<span id="6-14"><a href="#6-14" aria-hidden="true" tabindex="-1"></a><span class="co">-- Nothing</span></span>
+<span id="6-15"><a href="#6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="6-16"><a href="#6-16" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeHeadPair2 ([1,2,3], [])</span></span>
+<span id="6-17"><a href="#6-17" aria-hidden="true" tabindex="-1"></a><span class="co">-- Nothing</span></span></code></pre></div>
+</div>
+<p>It does work, if either list is empty then the whole function returns <em>Nothing</em> rather than just one side of the pair. The choice for which approach to use is based entirely on the context of the problem at hand. However, the second approach is more generalizable but also more tedious to write. Is there a way that we could abstract it? Notice that in the <em>Nothing</em> case that we simply returned <em>Nothing</em> and in the <em>Just</em> case we did another case expression but this could really be any arbitrary computation. What we really wanted to get access to was the <em>a</em> inside the <em>Maybe a</em>. Could we then write a function to do the case expression for us and just give us access to <em>a</em>? What type might this function have? Well it would need to take in the <em>Maybe a</em> we wish to case match over as well as a function to run on the internal <em>a</em>. What does this argument function need to return then? Well it should return a <em>Maybe b</em> because remember the <em>Nothing</em> case must return <em>Nothing</em>. Let’s try to write this function:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="7"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="7-1"><a href="#7-1" aria-hidden="true" tabindex="-1"></a><span class="ot">caseMatch ::</span> <span class="dt">Maybe</span> a <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> <span class="dt">Maybe</span> b) <span class="ot">-&gt;</span> <span class="dt">Maybe</span> b</span>
+<span id="7-2"><a href="#7-2" aria-hidden="true" tabindex="-1"></a>caseMatch ma famb <span class="ot">=</span></span>
+<span id="7-3"><a href="#7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">case</span> ma <span class="kw">of</span></span>
+<span id="7-4"><a href="#7-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">Nothing</span> <span class="ot">-&gt;</span> <span class="dt">Nothing</span></span>
+<span id="7-5"><a href="#7-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">Just</span> a  <span class="ot">-&gt;</span> famb a</span></code></pre></div>
+</div>
+<p>Now could we rewrite <em>safeHeadPair2</em> using this function? Let’s try it:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="8"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="8-1"><a href="#8-1" aria-hidden="true" tabindex="-1"></a><span class="ot">safeHeadPair2CM ::</span> ([a], [b]) <span class="ot">-&gt;</span> <span class="dt">Maybe</span> (a, b)</span>
+<span id="8-2"><a href="#8-2" aria-hidden="true" tabindex="-1"></a>safeHeadPair2CM (xs, ys) <span class="ot">=</span></span>
+<span id="8-3"><a href="#8-3" aria-hidden="true" tabindex="-1"></a>    caseMatch (safeHead xs) (\x <span class="ot">-&gt;</span></span>
+<span id="8-4"><a href="#8-4" aria-hidden="true" tabindex="-1"></a>        caseMatch (safeHead ys) (\y <span class="ot">-&gt;</span></span>
+<span id="8-5"><a href="#8-5" aria-hidden="true" tabindex="-1"></a>            <span class="dt">Just</span> (x, y)))</span>
+<span id="8-6"><a href="#8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="8-7"><a href="#8-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeHeadPair2CM ([1,2,3], [4,5])</span></span>
+<span id="8-8"><a href="#8-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Just (1,4)</span></span>
+<span id="8-9"><a href="#8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="8-10"><a href="#8-10" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeHeadPair2CM ([], [4,5])</span></span>
+<span id="8-11"><a href="#8-11" aria-hidden="true" tabindex="-1"></a><span class="co">-- Nothing</span></span>
+<span id="8-12"><a href="#8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="8-13"><a href="#8-13" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeHeadPair2CM ([1,2,3], [])</span></span>
+<span id="8-14"><a href="#8-14" aria-hidden="true" tabindex="-1"></a><span class="co">-- Nothing</span></span></code></pre></div>
+</div>
+<p>It works just as before! We still get the right creep problem though, if only there was a <em>syntactic sugar</em> for writing this kind of program… but alas let’s table that discussion until later. Instead let’s look at another <em>problem</em> you might run into when using <em>Maybe</em>. Let’s say you wanted to get the second element of every sublist in a list. First let’s write this in an unsafe way:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="9"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="9-1"><a href="#9-1" aria-hidden="true" tabindex="-1"></a><span class="ot">unsafeEverySecondElem ::</span> [[a]] <span class="ot">-&gt;</span> [a]</span>
+<span id="9-2"><a href="#9-2" aria-hidden="true" tabindex="-1"></a>unsafeEverySecondElem xss <span class="ot">=</span> <span class="fu">map</span> (<span class="fu">head</span> <span class="op">.</span> <span class="fu">tail</span>) xss</span>
+<span id="9-3"><a href="#9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="9-4"><a href="#9-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; unsafeEverySecondElem [[1,2,3], [4,5]]</span></span>
+<span id="9-5"><a href="#9-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- [2,5]</span></span>
+<span id="9-6"><a href="#9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="9-7"><a href="#9-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; unsafeEverySecondElem [[1,2,3], [4], [5,6]]</span></span>
+<span id="9-8"><a href="#9-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Prelude.head: empty list</span></span></code></pre></div>
+</div>
+<p>As expected if a list is not of at least length 2 then we get an exception. How could we write this safely?</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="10"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="10-1"><a href="#10-1" aria-hidden="true" tabindex="-1"></a><span class="ot">safeEverySecondElem ::</span> [[a]] <span class="ot">-&gt;</span> <span class="dt">Maybe</span> [a]</span>
+<span id="10-2"><a href="#10-2" aria-hidden="true" tabindex="-1"></a>safeEverySecondElem xss <span class="ot">=</span> <span class="fu">map</span> (safeHead <span class="op">.</span> safeTail) xss</span></code></pre></div>
+</div>
+<p>This doesn’t compile! Why? Well recall the type of <em>(.)</em>:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="11"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="11-1"><a href="#11-1" aria-hidden="true" tabindex="-1"></a><span class="ot">(.) ::</span> (b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> c</span></code></pre></div>
+</div>
+<p>If we apply it to the arguments we gave it above:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="12"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="12-1"><a href="#12-1" aria-hidden="true" tabindex="-1"></a><span class="ot">safeHead ::</span> [a] <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a</span>
+<span id="12-2"><a href="#12-2" aria-hidden="true" tabindex="-1"></a><span class="ot">safeTail ::</span> [a] <span class="ot">-&gt;</span> <span class="dt">Maybe</span> [a]</span>
+<span id="12-3"><a href="#12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="12-4"><a href="#12-4" aria-hidden="true" tabindex="-1"></a>(<span class="op">.</span> safeTail)<span class="ot"> ::</span> (<span class="dt">Maybe</span> [a] <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> c</span></code></pre></div>
+</div>
+<p>Therein lies the problem, <em>safeHead</em> doesn’t take an argument of type <em>Maybe [a]</em> it just takes <em>[a]</em>! Thus, we need a new way of composing. Our current way is not sufficient for functions which return this extra <em>structure</em> such as <em>Maybe</em>. What type would this new composition operator have? Perhaps something like this:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="13"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="13-1"><a href="#13-1" aria-hidden="true" tabindex="-1"></a><span class="ot">(&lt;=&lt;) ::</span> (b <span class="ot">-&gt;</span> <span class="dt">Maybe</span> c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> <span class="dt">Maybe</span> b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Maybe</span> c</span>
+<span id="13-2"><a href="#13-2" aria-hidden="true" tabindex="-1"></a>(<span class="op">&lt;=&lt;</span>) bmc amb a <span class="ot">=</span></span>
+<span id="13-3"><a href="#13-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">case</span> amb a <span class="kw">of</span></span>
+<span id="13-4"><a href="#13-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">Nothing</span> <span class="ot">-&gt;</span> <span class="dt">Nothing</span></span>
+<span id="13-5"><a href="#13-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">Just</span> b  <span class="ot">-&gt;</span> </span>
+<span id="13-6"><a href="#13-6" aria-hidden="true" tabindex="-1"></a>            <span class="kw">case</span> bmc b <span class="kw">of</span></span>
+<span id="13-7"><a href="#13-7" aria-hidden="true" tabindex="-1"></a>                <span class="dt">Nothing</span> <span class="ot">-&gt;</span> <span class="dt">Nothing</span></span>
+<span id="13-8"><a href="#13-8" aria-hidden="true" tabindex="-1"></a>                <span class="dt">Just</span> c  <span class="ot">-&gt;</span> <span class="dt">Just</span> c</span></code></pre></div>
+</div>
+<p>Look familiar!? This is exactly the pattern we already abstracted! We can use our <em>caseMatch</em> function here:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="14"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="14-1"><a href="#14-1" aria-hidden="true" tabindex="-1"></a><span class="ot">(&lt;=&lt;) ::</span> (b <span class="ot">-&gt;</span> <span class="dt">Maybe</span> c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> <span class="dt">Maybe</span> b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Maybe</span> c</span>
+<span id="14-2"><a href="#14-2" aria-hidden="true" tabindex="-1"></a>(<span class="op">&lt;=&lt;</span>) bmc amb a <span class="ot">=</span> caseMatch (amb a) bmc</span></code></pre></div>
+</div>
+<p>Awesome! Still not entirely satisfied with the right creep but we can fix that later. So that is 1 problem down now let’s try to write our function again:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="15"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="15-1"><a href="#15-1" aria-hidden="true" tabindex="-1"></a><span class="ot">safeEverySecondElem ::</span> [[a]] <span class="ot">-&gt;</span> <span class="dt">Maybe</span> [a]</span>
+<span id="15-2"><a href="#15-2" aria-hidden="true" tabindex="-1"></a>safeEverySecondElem xss <span class="ot">=</span> <span class="fu">map</span> (safeHead <span class="op">&lt;=&lt;</span> safeTail) xss</span></code></pre></div>
+</div>
+<p>However, there is still an issue! Our composed function <em>(safeHead &lt;=&lt; safeTail)</em> is returning a <em>Maybe a</em>. We are then passing this to <em>map</em>, let’s examine the types to see why this is an issue:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="16"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="16"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="16-1"><a href="#16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span><span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [b]</span>
+<span id="16-2"><a href="#16-2" aria-hidden="true" tabindex="-1"></a>(safeHead <span class="op">&lt;=&lt;</span> safeTail)<span class="ot"> ::</span> [a] <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a</span>
+<span id="16-3"><a href="#16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="16-4"><a href="#16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span> (safeHead <span class="op">&lt;=&lt;</span> safeTail)<span class="ot"> ::</span> [a] <span class="ot">-&gt;</span> [<span class="dt">Maybe</span> a]</span></code></pre></div>
+</div>
+<p>Our type is <em>[Maybe a]</em> instead of <em>Maybe [a]</em>! How could we rectify this? Well we need a function to transform from <em>[Maybe a]</em> to <em>Maybe [a]</em>, let’s try to write that:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="17"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="17"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="17-1"><a href="#17-1" aria-hidden="true" tabindex="-1"></a><span class="ot">flipStructure ::</span> [<span class="dt">Maybe</span> a] <span class="ot">-&gt;</span> <span class="dt">Maybe</span> [a]</span>
+<span id="17-2"><a href="#17-2" aria-hidden="true" tabindex="-1"></a>flipStructure [] <span class="ot">=</span> <span class="dt">Just</span> []</span>
+<span id="17-3"><a href="#17-3" aria-hidden="true" tabindex="-1"></a>flipStructure (ma<span class="op">:</span>mas) <span class="ot">=</span></span>
+<span id="17-4"><a href="#17-4" aria-hidden="true" tabindex="-1"></a>    caseMatch ma (\a <span class="ot">-&gt;</span></span>
+<span id="17-5"><a href="#17-5" aria-hidden="true" tabindex="-1"></a>        caseMatch (flipStructure mas) (\as <span class="ot">-&gt;</span></span>
+<span id="17-6"><a href="#17-6" aria-hidden="true" tabindex="-1"></a>            <span class="dt">Just</span> (a <span class="op">:</span> as)))</span></code></pre></div>
+</div>
+<p>Hmm a bit subtle what is going on here but essentially we need to figure out if the current element of the list failed, is <em>Nothing</em>, and then we need to ask if any other computation in the rest of the list failed, <em>flipStructure mas</em>, then and only then can we say that the whole computation was successful and thus we can return just of the list. This function takes some getting used to but we will go over and use it more.</p>
+<p>Let’s now try to use this function to finish writing our original function:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="18"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="18"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="18-1"><a href="#18-1" aria-hidden="true" tabindex="-1"></a><span class="ot">safeEverySecondElem ::</span> [[a]] <span class="ot">-&gt;</span> <span class="dt">Maybe</span> [a]</span>
+<span id="18-2"><a href="#18-2" aria-hidden="true" tabindex="-1"></a>safeEverySecondElem xss <span class="ot">=</span> flipStructure <span class="op">$</span> <span class="fu">map</span> (safeHead <span class="op">&lt;=&lt;</span> safeTail) xss</span>
+<span id="18-3"><a href="#18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="18-4"><a href="#18-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeEverySecondElem [[1,2,3], [4,5], [6,7]]</span></span>
+<span id="18-5"><a href="#18-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- Just [2,5,7]</span></span>
+<span id="18-6"><a href="#18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="18-7"><a href="#18-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeEverySecondElem [[1,2,3], [], [6,7]]</span></span>
+<span id="18-8"><a href="#18-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Nothing</span></span></code></pre></div>
+</div>
+<p>Voila it works! Satisfied? You should feel at least intrigued by these ideas I hope but not entirely satisfied. It felt like a lot of work to get here and luckily these ideas can be expressed very easily in Haskell! You remember how I said it would be nice to have an easier way to use the <em>caseMatch</em> function? Well the <em>caseMatch</em> function is actually called <em>bind</em> in Haskell and is written <em>&gt;&gt;=</em>. This type of computation is so common that there is a built in way to chain <em>bind</em>s together called <em>do</em>. We could rewrite the functions where we used <em>caseMatch</em> with <em>do</em>:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="19"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="19"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="19-1"><a href="#19-1" aria-hidden="true" tabindex="-1"></a><span class="ot">safeHeadPair2Do ::</span> ([a], [b]) <span class="ot">-&gt;</span> <span class="dt">Maybe</span> (a, b)</span>
+<span id="19-2"><a href="#19-2" aria-hidden="true" tabindex="-1"></a>safeHeadPair2Do (xs, ys) <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="19-3"><a href="#19-3" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> safeHead xs</span>
+<span id="19-4"><a href="#19-4" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> safeHead ys</span>
+<span id="19-5"><a href="#19-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Just</span> (x, y)</span>
+<span id="19-6"><a href="#19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="19-7"><a href="#19-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeHeadPair2Do ([1,2,3], [4,5])</span></span>
+<span id="19-8"><a href="#19-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Just (1,4)</span></span>
+<span id="19-9"><a href="#19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="19-10"><a href="#19-10" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeHeadPair2Do ([], [4,5])</span></span>
+<span id="19-11"><a href="#19-11" aria-hidden="true" tabindex="-1"></a><span class="co">-- Nothing</span></span>
+<span id="19-12"><a href="#19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="19-13"><a href="#19-13" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeHeadPair2Do ([1,2,3], [])</span></span>
+<span id="19-14"><a href="#19-14" aria-hidden="true" tabindex="-1"></a><span class="co">-- Nothing</span></span></code></pre></div>
+</div>
+<p>Our <em>flipStructure</em> function is also a common pattern and is called <em>sequence</em> in Haskell. Additionally the pattern of <em>map</em> then <em>sequence</em> is also so common it has a function dedicated to it, <em>traverse</em>. <em>traverse</em> goes by other names as well such as <em>mapM</em> or <em>forM</em> which is just <em>flip mapM</em>. Thus, we could rewrite <em>safeEverySecondElem</em> as:</p>
+<div class="code-container">
+<div class="code-header">
+<span class="language-label">haskell</span><a href="javascript:void(0);" class="copy-button" data-copy-target="20"><img src="../images/copy-icon.png" id="copyIconId" class="copy-icon" /><span id="copyCodeId" class="copy-code">copy code</span><img src="../images/copied-icon.png" id="copiedIconId" class="copied-icon" /><span id="copiedId" class="copied">copied!</span></a>
+</div>
+<div class="sourceCode" id="20"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="20-1"><a href="#20-1" aria-hidden="true" tabindex="-1"></a><span class="ot">safeEverySecondElemTrav ::</span> [[a]] <span class="ot">-&gt;</span> <span class="dt">Maybe</span> [a]</span>
+<span id="20-2"><a href="#20-2" aria-hidden="true" tabindex="-1"></a>safeEverySecondElemTrav xss <span class="ot">=</span> <span class="fu">traverse</span> (safeHead <span class="op">&lt;=&lt;</span> safeTail) xss</span>
+<span id="20-3"><a href="#20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="20-4"><a href="#20-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeEverySecondElemTrav [[1,2,3], [4,5], [6,7]]</span></span>
+<span id="20-5"><a href="#20-5" aria-hidden="true" tabindex="-1"></a><span class="co">-- Just [2,5,7]</span></span>
+<span id="20-6"><a href="#20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="20-7"><a href="#20-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- &gt;&gt;&gt; safeEverySecondElemTrav [[1,2,3], [], [6,7]]</span></span>
+<span id="20-8"><a href="#20-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Nothing</span></span></code></pre></div>
+</div>
+<hr />
+    </section>
+</article>
+
+    </main>
+
+    <footer>
+        Site proudly generated by
+        <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+    </footer>
+
+    <script src="../js/copy-code.js"></script>
+    <script src="../js/drop-down.js"></script>
+</body>
+
+</html>

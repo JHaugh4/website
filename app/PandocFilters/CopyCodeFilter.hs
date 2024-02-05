@@ -6,7 +6,7 @@ import Text.Pandoc.JSON
 
 import Control.Monad.State.Strict
 
-import Data.Text (Text, pack)
+import Data.Text (Text, pack, append)
 
 import Debug.Trace
 
@@ -26,8 +26,9 @@ addCopyButton b@(CodeBlock (i, classes, namevals) contents)
     | otherwise = do
         newId <- get
         put (newId + 1)
+        let hide = filter (== "hide") classes
         return $
-            Div ("", ["code-container"], []) 
+            Div ("", "code-container" : hide, []) 
                 [ Div ("", ["code-header"], [])
                     [ Plain 
                         [ Span ("", ["language-label"], []) [Str $ head classes]

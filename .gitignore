@@ -2,3 +2,6 @@ _cache/
 .vscode/
 dist-newstyle/
 **/.prettierrc
+.stack-work/
+**.zip
+**.lock

@@ -1,0 +1,72 @@
+/*
+Solarized light style
+*/
+
+.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    background: var(--base3);
+    color: var(--base00);
+  }
+  
+  .hljs-tag,
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-literal,
+  .hljs-strong,
+  .hljs-name {
+    color: var(--green);
+  }
+  
+  .hljs-code {
+    color: var(--blue);
+  }
+  
+  .hljs-class .hljs-title {
+    color: var(--orange);
+  }
+  
+  .hljs-attribute,
+  .hljs-symbol,
+  .hljs-regexp,
+  .hljs-link {
+    color: var(--violet);
+  }
+  
+  .hljs-string,
+  .hljs-bullet,
+  .hljs-subst,
+  .hljs-title,
+  .hljs-section,
+  .hljs-emphasis,
+  .hljs-type,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-selector-attr,
+  .hljs-selector-pseudo,
+  .hljs-addition,
+  .hljs-variable,
+  .hljs-template-tag,
+  .hljs-template-variable {
+    color: var(--cyan);
+  }
+  
+  .hljs-comment,
+  .hljs-quote,
+  .hljs-deletion,
+  .hljs-meta {
+    color: var(--base1);
+  }
+  
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-literal,
+  .hljs-doctag,
+  .hljs-title,
+  .hljs-section,
+  .hljs-type,
+  .hljs-selector-id {
+    font-weight: bold;
+  }
+  

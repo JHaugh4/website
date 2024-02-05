@@ -106,6 +106,10 @@ article .header {
   margin-bottom: 0;
 }
 
+/* div.code-container:has(pre.text) {
+  border: solid;
+} */
+
 div.sourceCode {
   margin-top: 0 !important; /* Forces this to overwrite the auto-generated syntax.css */
   padding: 10px;
@@ -200,6 +204,10 @@ div.sourceCode {
 /* Show the dropdown menu on click */
 .dropdown-content.show {
   display: block;
+}
+
+.hide {
+  display: none;
 }
 
 /* */
